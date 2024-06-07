@@ -1,8 +1,0 @@
-\babel@toc {english}{}\relax 
-\beamer@sectionintoc {1}{Import data}{3}{0}{1}
-\beamer@sectionintoc {2}{Compute sum scores}{5}{0}{2}
-\beamer@sectionintoc {3}{Graphics}{27}{0}{3}
-\beamer@sectionintoc {4}{Esport graphs}{78}{0}{4}
-\beamer@sectionintoc {5}{\texttt {R} for statistical computing}{82}{0}{5}
-\beamer@sectionintoc {6}{Classical hypothesis testing in R}{84}{0}{6}
-\beamer@sectionintoc {7}{Generalized Linear Models (GLMs)}{92}{0}{7}
