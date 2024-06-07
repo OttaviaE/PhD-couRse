@@ -1,0 +1,1654 @@
+---
+title: "01-P`R`actice"
+date: 'June, 13 2024'
+author: |
+  | Ottavia M. Epifania
+  | Università di Padova
+institute: "Lezione di Dottorato @Università Cattolica del Sacro Cuore (MI)"
+output: 
+  beamer_presentation: 
+    theme: EastLansing
+    colortheme: dove
+    highlight: kate
+header-includes:
+    - \AtBeginDocument{\title[co\texttt{R}so]{01-P\texttt{R}actice}}
+    - \AtBeginDocument{\author[OME, UniPD]{Ottavia M. Epifania, Ph.D}}
+    - \AtBeginDocument{\date[13 Giugno]{13 Giugno 2024}}
+    - \AtBeginDocument{\institute[Lezioni UniCatt]{Lezione di Dottorato @Università Cattolica del Sacro Cuore (MI)}}
+    - \usepackage{graphicx} 
+    - \usepackage{setspace}
+    - \usepackage{tabularx}
+    - \usetheme[compressed]{Singapore}
+    - \usepackage[english]{babel}
+    - \usepackage{tikzsymbols}
+    - \usepackage{subcaption}
+    - \usepackage{tikz}
+    - \usepackage{spot}
+    - \usepackage{tabularx}
+    - \usepackage[absolute,overlay]{textpos}
+    - \usepackage{booktabs}
+    - \newcommand\Factor{1.2}
+    - \setbeamerfont{subtitle}{size=\large, series=\bfseries}
+    - \definecolor{template}{RGB}{155, 0, 20}
+    - \definecolor{background}{RGB}{250, 250, 250}
+    - \setbeamercolor{frametitle}{bg=background}
+    - \setbeamertemplate{frametitle}{\color{template}\bfseries\insertframetitle\par\vskip-6pt\hrulefill}
+    - \AtBeginSection{\frame{\sectionpage}}
+    - \setbeamercolor{section name}{fg=white}
+    - \setbeamercolor{title}{fg=template, bg=background}
+    - \setbeamercolor{section title}{fg=template}
+    - \setbeamercolor{frame subtitle}{fg=template}
+    - \setbeamercolor{title}{fg=template}
+    - \setbeamercolor{background canvas}{bg=background}
+    - \setbeamersize{text margin left=5mm,text margin right=5mm} 
+    - \AtBeginSection[]
+          {
+             \begin{frame}[plain]
+             \frametitle{Table of Contents}
+             \tableofcontents[currentsection]
+              \end{frame}
+          }
+editor_options: 
+  chunk_output_type: console
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      eval = TRUE, 
+                      message = FALSE, 
+                      comment="", 
+                      tidy=FALSE, 
+                      warning = FALSE, 
+                      fig.align = "center", 
+                      out.width = "70%")
+library(ggplot2)
+library(gridExtra)
+library(knitr)
+library(tidyverse)
+# hook_output <- knitr::knit_hooks$get("output")
+# knitr::knit_hooks$set(output = function(x, options) {
+# if (!is.null(n <- options$out.lines)) {
+# x <- xfun::split_lines(x)
+# if (length(x) > n) {
+# # truncate the output
+# x <- c(head(x, n), "....\n")
+# } 
+# x <- paste(x, collapse = "\n")
+# } 
+# hook_output(x, options)
+# })
+hook_output = knit_hooks$get('output')
+knit_hooks$set(output = function(x, options) {
+  # this hook is used only when the linewidth option is not NULL
+  if (!is.null(n <- options$myline)) {
+    x = xfun::split_lines(x)
+    # any lines wider than n should be wrapped
+    if (any(nchar(x) > n)) x = strwrap(x, width = n)
+    x = paste(x, collapse = '\n')
+  } else if (!is.null(n <- options$out.lines)) {
+x <- xfun::split_lines(x)
+if (length(x) > n) {
+# truncate the output
+x <- c(head(x, n), "....\n")
+}
+x <- paste(x, collapse = "\n")
+}
+  hook_output(x, options)
+})
+set.seed(9999)
+library(knitr)
+
+
+library(faux)
+
+babies = rnorm_multi(n = 10, 
+                     varnames = c("genere", "peso", "altezza"),
+                     mu = c(0, 8, 80), 
+                     sd = c(1, 4, 10), 
+                     r = c(.30, .50, .80), 
+                     empirical = F)
+babies$id = paste("baby", 1:nrow(babies), sep ="")
+babies = babies[, c("id", "genere", "peso", "altezza")]
+babies$genere = norm2likert(babies$genere, 
+                            prob = c(.50, .50), 
+                            labels = c("m", "f"))
+babies$peso = norm2gamma(babies$peso, 
+                         10, 1)
+
+
+
+
+dataTol <- rnorm_multi(n = 100, 
+                  mu = c(0, 20, 20),
+                  sd = c(1, 5, 5),
+                  r = c(0.5, 0.5, 0.8), 
+                  varnames = c("A", "B", "C"),
+                  empirical = FALSE)
+dataTol$A = (norm2likert(dataTol$A, c(.17, .17, .17, .17, .17, .17)))
+dataTol$B = norm2binom(dataTol$B, size = 1, prob = .90)
+dataTol$C = norm2gamma(dataTol$C, shape = 2, rate = 4)
+
+# prendo la correlazione dei dati Tol che ho e simulo dei dati nuovi a partire da quelli 
+
+my_data = rnorm_multi(n = 100, 
+                      mu = c(10, 1000, 5), 
+                      sd = c(4, 500, 1), 
+                      r = c(.80, .30, 0.0), 
+                      varnames = c("benessere", "stipendio", "genere"))
+my_data$benessere = norm2pois(my_data$benessere, 
+                              5)
+my_data$stipendio = norm2trunc(my_data$stipendio, 
+                               min = 300)
+my_data$genere = norm2likert(my_data$genere, prob = c(.49, .51), 
+                             labels = c("m", "f"))
+months = round(runif(15, 6,  16))
+weight = seq(3, 11, length.out = 15) 
+id = paste0("sbj", 1:15)
+babies = data.frame(id, months, weight)
+```
+
+
+
+## Table of contents
+
+\tableofcontents
+
+# Import data 
+
+## `Import csv`
+
+```{r, myline=60}
+data = read.csv("data/benessere.csv", 
+                header = TRUE, 
+                sep =",", dec = ".")
+head(data)
+```
+
+
+# Compute sum scores 
+
+## 
+
+Data set is in wide format
+
+- Sum across columns $\rightarrow$ sum scores of the respondents
+
+> `rowSums()` (`rowMean()` for computing the mean)
+
+- Sum across rows (righe) $\rightarrow$ sum scores of the items 
+
+> `colSums()` (`colMean()` for computing the mean)
+
+
+## Well-being
+
+
+\small
+```{r mylin = 45}
+library(readxl)
+benessere = read_xlsx("data/datiBenessere.xlsx")
+
+head(benessere,2)
+
+```
+
+\normalsize
+
+`rowSums()` : 
+
+\small
+
+```{r}
+rowSums(benessere)
+```
+
+Is it meaningful....?
+
+
+## Conditioning according to variable labels
+
+They must present a regular expression (common root):
+
+```{r myline=50}
+colnames(benessere)
+```
+
+Columns with `item` $\rightarrow$ well-being items
+
+Columns with `au` $\rightarrow$ self-esteem items 
+
+## 
+
+`grep()`e `grepl()`: functions for filtering data according to a  `reg`ular `exp`ression (`regex`)
+
+\begin{center}
+\texttt{grep("regex", vector)}
+\end{center}
+
+Same functioning, different results
+
+\footnotesize
+
+```{r myline = 80}
+(my_vector = colnames(benessere))
+```
+
+`grep()`
+
+```{r}
+grep("au", my_vector)
+```
+
+`grepl()`
+
+```{r}
+grepl("au", my_vector)
+```
+
+## Compute sum scores
+
+`rowSums()` conditioned on specific columns:
+
+\small
+```{r myline = 60}
+cat(rowSums(benessere[, grep("item", colnames(benessere))])[1:15], "...")
+```
+
+Assign to a new column (new variable)
+
+```{r}
+benessere$score_ben = rowSums(benessere[, grep("item", colnames(benessere))])
+```
+
+
+## `summary()`
+
+
+\small
+
+```{r}
+babies <- read.table("data/babies.tab")
+summary(babies$peso)
+```
+
+
+## data set
+
+
+```{r}
+summary(babies)
+```
+
+
+## `table()`
+
+
+
+```{r}
+table(babies$genere)
+```
+
+
+## Contingency tables
+
+\small
+```{r}
+
+benessere = read.csv("data/benessere.csv", header = T)
+# creo una nuova variabile dicotomica per descrivere 
+# il livello di benessere
+benessere$new_benessere = with(benessere, 
+                               ifelse(benessere > mean(benessere), 
+                                      "alto", 
+                                      "basso"))
+with(benessere, table(new_benessere, genere))
+
+```
+
+## `table()` and percentages
+\small 
+
+Single variable
+
+```{r}
+(table(babies$genere)/nrow(babies))*100
+```
+
+Multiple variables
+
+```{r}
+my_perc = with(benessere, table(new_benessere, genere))
+(my_perc = cbind(my_perc, rowSums(my_perc)))
+
+```
+
+##
+
+```{r}
+# ta-dan!
+my_perc/my_perc[,3]
+```
+
+
+## Aggregating
+
+Aggregate a response variable according to grouping variable(s) (e.g., averaging per experimental conditions): 
+
+```{r eval = FALSE}
+# one depenent variable (y) and single grouping variable
+aggregate(y ~ x, data = data, FUN, ...)
+
+# Multiple response variables, multiple grouping variables
+aggregate(cbind(y1, y2) ~ x1 + x2, data = data, FUN, ...)
+```
+
+## Aggregating: Examples
+
+
+```{r}
+benessere = read.csv("data/benessereScores.csv", header = T, sep =",")
+head(benessere)
+
+```
+
+
+## 
+
+\normalsize 
+
+Compute the mean of the self esteem according to gender
+
+```{r}
+aggregate(score_au ~ genere, data = benessere, mean)
+```
+
+Compute the mean according of self esteem and well being according to gender
+
+```{r}
+aggregate(cbind(score_ben, score_au) ~ genere, data = benessere, mean)
+```
+
+
+## Your turn! 
+
+
+```{r echo = FALSE, fig.align='center', out.width="15%"}
+knitr::include_graphics("img/work.png")
+```
+
+\small
+
+- Recode `frat` and assign it to a new var into the data frame (`siblings`:
+> 0 siblings $\rightarrow$ no
+>
+> 1+ sibilings $\rightarrow$ yes
+
+- Compute the mean of `score_ben` according to `siblings`
+
+- Compute the mean of `score_ben` and `score_au` according to `sibilings`and gender (assign it to the object `mean_dep`)
+
+- Compute the standard deviation of `score_ben` and `score_au` according to `sibilings`and gender (assign it to the object `sd_dep`)
+
+- merge `mean_dep` and `sd_dep` and assign the resulting object to `descr`
+
+
+\begin{alertblock}{WARNING!}
+
+When using merge the column names must be different
+
+\end{alertblock}
+
+
+## Result
+
+\footnotesize
+
+```{r echo = FALSE, myline = 80}
+
+benessere$siblings = ifelse(benessere$frat == 0, "no", "yes")
+
+mean_dep = aggregate(cbind(score_ben, score_au) ~ siblings + genere, 
+                     data = benessere, mean)
+colnames(mean_dep)[3:4] = paste("mean", colnames(mean_dep)[3:4], sep = "_")
+sd_dep = aggregate(cbind(score_ben, score_au) ~ siblings + genere, 
+                     data = benessere, sd)
+colnames(sd_dep)[3:4] = paste("sd", colnames(sd_dep)[3:4], sep =  "_")
+
+descr = merge(mean_dep, sd_dep)
+
+```
+
+
+
+```{r}
+descr
+```
+
+
+## Solution
+
+\footnotesize
+
+
+```{r eval = FALSE}
+benessere$siblings = ifelse(benessere$frat == 0, "no", "yes")
+
+mean_dep = aggregate(cbind(score_ben, score_au) ~ siblings + genere, 
+                     data = benessere, 
+                     mean)
+colnames(mean_dep)[3:4] = paste("mean", 
+                                colnames(mean_dep)[3:4], 
+                                sep = "_")
+sd_dep = aggregate(cbind(score_ben, score_au) ~ siblings + genere, 
+                     data = benessere, 
+                   sd)
+colnames(sd_dep)[3:4] = paste("sd", colnames(sd_dep)[3:4], 
+                              sep =  "_")
+
+descr = merge(mean_dep, sd_dep)
+```
+
+
+## `tidyverse()`
+
+```{r eval = FALSE}
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+
+
+\pause 
+
+\begin{center}
+
+\texttt{%>%} (Pipe)
+
+\end{center}
+
+
+Use the combo `shift + ctrl + M`
+
+Logic:
+
+```{r eval = FALSE}
+object %>%  
+  grouping %>% 
+  function
+```
+
+## Descriptive statistica
+
+
+```{r}
+benessere %>%  # object
+  group_by(siblings, genere) %>%  # groupings
+  summarise(m_benessere = mean(score_ben),  # functions
+            sd_benessere = sd(score_ben), 
+            m_au = mean(score_au), 
+            sd_au = sd(score_au))
+```
+
+
+## Your turn! 
+
+
+```{r echo = FALSE, fig.align='center', out.width="15%"}
+knitr::include_graphics("img/work.png")
+```
+
+- Compute minimum, maximum, median of  `score_au` and `score_ben` with `tidyverse`
+
+- Import the `babies` datas set and compute the descriptive stats of weight and height with`tidyverse`
+
+
+# Graphics
+
+##
+
+- Traditional graphics
+- Grid graphics \& `ggplot2`
+
+For both: 
+
+- High level functions $\rightarrow$ actually produce the plot
+- Low level functions $\rightarrow$ make it looks better =)
+
+
+## Traditional graphics I
+
+High level functions
+
+```{r eval = FALSE}
+plot()      # scatter plot, specialized plot methods
+boxplot()
+hist()      # histogram
+qqnorm()    # quantile-quantile plot
+barplot()
+pie()       # pie chart
+pairs()     # scatter plot matrix
+persp()     # 3d plot
+contour()   # contour plot
+coplot()    # conditional plot
+interaction.plot()
+```
+
+
+`demo(graphics)` for a guided tour of base graphics!
+
+## Traditional graphics II
+
+Low level functions
+
+```{r eval = FALSE}
+points()       # add points
+lines()        # add lines
+rect()
+polygon()
+abline()       # add line with intercept a, slope b
+arrows()
+text()         # add text in plotting region
+mtext()        # add text in margins region
+axis()         # customize axes
+box()          # box around plot
+legend()
+```
+
+## Plot layout
+
+Each plot is composed of two regions: 
+
+- The plotting regions (contains the actual plot)
+- The margins region (contain axes and labels)
+
+## A scatter plot: 
+
+```{r eval = FALSE}
+x <- runif(50, 0, 2) # 50 uniform random numbers
+y <- runif(50, 0, 2)
+plot(x, y, main="Title", 
+     sub="Subtitle", xlab="x-label",
+     ylab="y-label") # produce plotting window
+```
+
+Now add some text: 
+
+
+
+```{r eval = FALSE}
+text(0.6, 0.6, "Text at (0.6, 0.6)")
+abline(h=.6, v=.6, lty=2) # horizont. and vertic. 
+                          # lines
+```
+
+
+## Margins region 
+
+\small
+
+```{r eval=TRUE, echo=FALSE, out.width="100%"}
+x <- runif(50, 0, 2) # 50 uniform random numbers
+y <- runif(50, 0, 2)
+plot(x, y, main="Title", 
+     sub="Subtitle", xlab="x-label",
+     ylab="y-label", cex.lab=1.5) # produce plotting window
+text(0.6, 0.6, "Text at (0.6, 0.6)")
+abline(h=.6, v=.6, lty=2) # horiz. and vert. lines
+
+for(side in 1:4) mtext(-1:4, side=side, at=.7, line=-1:4)
+mtext(paste("Side", 1:4), side=1:4, line=-1, font=2)
+```
+
+## Rome wasn't built in a day  \small and neither your graph
+
+Display the interaction between the two factors of a two-factorial experiment: 
+
+```{r eval=T}
+dat <- read.table(header=TRUE, text="
+A B rt
+a1 b1 825
+a1 b2 792
+a1 b3 840
+a2 b1 997
+a2 b2 902
+a2 b3 786
+")
+```
+
+Force `A` and `B` to be `factor`:
+
+```{r eval =TRUE}
+dat[,1:2] = lapply(dat[,1:2], as.factor)
+```
+
+## Modificare il layout dei plot 
+
+Vanno creati dei pannelli
+
+\small
+
+```{r eval=FALSE, myline = 60}
+par(mfrow=c(nrighe, ncolonne)) # pannelli vengono riempiti per riga
+par(mfcol=c(nrighe, ncolonne)) # pannelli vengono riempiti per colonna 
+```
+
+## `plot()`
+
+```{r eval = FALSE}
+plot(x) # solo una variabile
+plot(x, y) # due variabile (scatter plot)
+plot(y ~ x) # due variabile, y in funzione di x
+```
+
+
+## Esempi: `plot(x)`
+
+\scriptsize
+
+```{r}
+with(benessere, 
+     plot(score_au, 
+          col = ifelse(genere == 1, "blue", "pink"), 
+          pch = ifelse(genere == 1, 3, 16)))
+legend(x = 115, y = 48, 
+       c("Maschi", "Femmine"), pch = c(3, 16), 
+       col =c("blue", "pink"), cex = 2)
+```
+
+
+## Esempi: `plot(x, y)`
+
+```{r}
+with(benessere, 
+     plot(score_au, score_ben))
+
+```
+
+## Esempi: `plot(y ~ x)`
+
+```{r}
+with(benessere, 
+     plot(score_ben ~ score_au))
+```
+
+
+
+## Esempi: `plot(y ~ x)` con retta di regressione
+
+```{r}
+with(benessere, 
+     plot(score_ben ~ score_au))
+abline(lm(score_ben ~ score_au, data = benessere), 
+          col = "blue", lty = 3, lwd = 3)
+```
+
+
+## Esempi: `plot(y ~ x)` con x categoriale
+
+```{r}
+benessere$genere <- factor(ifelse(benessere$genere == 1, 
+                           "maschio", "femmina"))
+plot(score_au ~ genere, data = benessere)
+
+```
+
+## Attenzione!
+
+`plot(y ~ x)` con x categoriale è uguale a `boxplot(y ~ x)`
+
+
+```{r}
+boxplot(score_au ~ genere, data = benessere)
+```
+
+
+
+
+## `hist()`: Frequenze
+
+\scriptsize
+```{r}
+hist(benessere$score_au, breaks = 20)
+```
+
+
+## `hist()`: Densità
+
+Densità
+\scriptsize
+```{r}
+hist(benessere$score_au,
+     density=50, breaks=20, 
+     prob=TRUE, col = "darkblue")
+```
+
+
+
+## Multi plot (in riga)
+
+\footnotesize
+
+```{r eval = FALSE}
+par(mfrow=c(1, 2))
+
+hist(benessere$score_au,density=50, breaks=20, prob=TRUE, 
+     main = "Score au")
+curve(dnorm(x, mean=mean(benessere$score_au), 
+            sd=sd(benessere$score_au)), 
+      col="springgreen4", lwd=2, add=TRUE, yaxt="n")
+
+[...]
+
+```
+
+
+
+```{r echo = FALSE}
+par(mfrow=c(2, 2))
+
+hist(benessere$score_au,density=50, breaks=20, prob=TRUE, 
+     main = "Score au")
+curve(dnorm(x, mean=mean(benessere$score_au), 
+            sd=sd(benessere$score_au)), 
+      col="springgreen4", lwd=2, add=TRUE, yaxt="n")
+
+hist(benessere$score_ben,density=50, breaks=20, prob=TRUE, 
+     main = "Score benessere")
+curve(dnorm(x, mean=mean(benessere$score_ben), 
+            sd=sd(benessere$score_ben)), 
+      col="royalblue", lwd=2, add=TRUE, yaxt="n")
+
+```
+
+
+
+
+
+## Multiplot (in colonna)
+
+
+```{r echo = FALSE, out.width="120%"}
+par(mfcol= c(2,2))
+hist(benessere$score_au,density=50, breaks=20, prob=TRUE, 
+     main = "Score au")
+curve(dnorm(x, mean=mean(benessere$score_au), 
+            sd=sd(benessere$score_au)), 
+      col="springgreen4", lwd=2, add=TRUE, yaxt="n")
+
+hist(benessere$score_ben,density=50, breaks=20, prob=TRUE, 
+     main = "Score benessere")
+curve(dnorm(x, mean=mean(benessere$score_ben), 
+            sd=sd(benessere$score_ben)), 
+      col="royalblue", lwd=2, add=TRUE, yaxt="n")
+
+with(benessere, 
+     plot(score_au, score_ben, frame = FALSE))
+
+
+with(benessere, 
+     plot(score_au, score_ben, frame = FALSE))
+abline(lm(score_ben ~ score_au, data = benessere), col = "blue", lwd = 2)
+
+
+```
+
+
+## Multiplot (in colonna), codice
+
+
+```{r echo = T, eval = FALSE}
+par(mfcol= c(2,2))
+hist(benessere$score_au,density=50, breaks=20, prob=TRUE, 
+     main = "Score au")
+curve(dnorm(x, mean=mean(benessere$score_au), 
+            sd=sd(benessere$score_au)), 
+      col="springgreen4", lwd=2, add=TRUE, yaxt="n")
+
+hist(benessere$score_ben,density=50, breaks=20, prob=TRUE, 
+     main = "Score benessere")
+curve(dnorm(x, mean=mean(benessere$score_ben), 
+            sd=sd(benessere$score_ben)), 
+      col="royalblue", lwd=2, add=TRUE, yaxt="n")
+
+with(benessere, 
+     plot(score_au, score_ben, frame = FALSE))
+
+
+with(benessere, 
+     plot(score_au, score_ben, frame = FALSE))
+abline(lm(score_ben ~ score_au, data = benessere), col = "blue", lwd = 2)
+
+
+```
+
+## `barplot()`: Frequenze assolute
+
+Per creare i grafici a barre quando si hanno variabili discrete o categoriali
+
+ 
+
+
+```{r}
+freq_item1 = table(benessere$item1)
+barplot(freq_item1, 
+        main = "Frequenze assolute di risposta all'item 1")
+
+```
+
+## `barplot()`: Frequenze relative
+
+Richiede uno step in più $\rightarrow$ la creazione della tabella delle frequenze
+
+```{r}
+perc_item1 = freq_item1/sum(freq_item1)
+barplot(perc_item1, ylim = c(0, 1), 
+        main = "Frequenze relative di risposta all'item 1")
+
+```
+
+
+## `barplot()` con più variabili 
+
+\scriptsize
+
+```{r}
+perc_item1_gender = table(benessere$genere, benessere$item1)
+perc_item1_gender[1,] = perc_item1_gender[1,]/table(benessere$item1)
+perc_item1_gender[2,] = perc_item1_gender[2,]/table(benessere$item1)
+
+barplot(perc_item1_gender, ylim=c(0,1), 
+        legend = rownames(perc_item1_gender))
+abline(h = .5, lty = 2, col = "red")
+```
+
+
+
+## Un altro esempio di multiplot 
+
+```{r echo = FALSE, out.width="100%"}
+item_ben = benessere[, grep("item", colnames(benessere))]
+
+par(mfrow = c(2, round(ncol(item_ben)/2  + 0.2)))
+temp = NULL
+for (i in 1:ncol(item_ben)) {
+  temp = table(benessere$genere, item_ben[,i])
+  for (j in 1:nrow(temp)) {
+    temp[j,] = temp[j,]/table(item_ben[,i])
+  }
+barplot(temp, ylim=c(0,1), legend = rownames(temp), 
+        main = colnames(item_ben)[i])
+abline(h = .5, lty = 2, col = "red")
+}
+
+```
+
+
+## Un esempio di multiplot (codice) 
+\footnotesize
+
+```{r echo = TRUE, eval = FALSE, myline = 80}
+item_ben = benessere[, grep("item", colnames(benessere))]
+
+par(mfrow = c(2, round(ncol(item_ben)/2  + 0.2)))
+temp = NULL
+for (i in 1:ncol(item_ben)) {
+  temp = table(benessere$genere, item_ben[,i])
+  for (j in 1:nrow(temp)) {
+    temp[j,] = temp[j,]/table(item_ben[,i])
+  }
+barplot(temp, ylim=c(0,1), legend = rownames(temp), 
+        main = colnames(item_ben)[i])
+abline(h = .5, lty = 2, col = "red")
+}
+
+```
+
+
+
+## `interaction.plot()`
+
+Permette di vedere l'interazione tra due variabili a seconda di una terza variabile: 
+
+`interaction.plot(x, v. categoriale, y)`
+
+\pause
+
+La relazione tra peso e altezza cambia a seconda del genere?
+
+
+
+```{r echo = FALSE}
+babies = read.table("data/babies.tab")
+
+plot(altezza ~ peso, data = babies, 
+     col = ifelse(genere == "f", "pink", "blue"), 
+     pch = 16, main = "Peso - altezza dei bambini", 
+     cex = 3)
+```
+
+
+## 
+\footnotesize
+
+```{r tidy=FALSE, out.lines = 8}
+babies$cat_weight = with(babies, 
+                         ifelse(
+                           peso <= quantile(babies$peso)[2], 
+                           "light", 
+                           ifelse(peso > quantile(babies$peso)[2] & 
+                                    peso > quantile(babies$peso)[4], 
+       "medium", 
+       "heavy")))
+babies$cat_weight = factor(babies$cat_weight, 
+                           levels = c("light", 
+                                      "medium", 
+                                      "heavy"))
+
+
+babies
+```
+
+## 
+
+```{r}
+with(babies, 
+     interaction.plot(cat_weight, genere, altezza))
+
+```
+
+
+## `ggplot2` 
+
+\small
+
+`ggplot2` (Grammar of Graphics plot, Wickman, 2016) is one of the best packages for plotting raw data and results: 
+
+```{r eval=FALSE}
+install.packages("ggplot2") ; library(ggplot2)
+```
+
+```{r eval = FALSE}
+
+ggplot(data, 
+       ars(x = var.x, 
+           y = var.y, 
+           col = var.color, # factor or character
+           fill =  var.filling, # factor or character
+           shape =  var.shape, # actor or character 
+           size = var.size,  # numeric
+           ...)) + geom_graph.type() + ...
+
+```
+
+
+
+
+
+## Raw data
+
+```{r out.width="50%"}
+ggplot(rock, 
+       aes(y=peri,x=shape, color =shape, 
+           size = peri)) + geom_point() +
+  theme_bw() + theme(legend.position = "none")
+```
+
+
+
+
+## The code for the interaction plot
+
+```{r eval = FALSE}
+ggplot(dat, aes(x = B, y = rt, group = A)) +  
+  geom_point(pch=dat$A, size = 5) + 
+  geom_line(aes(linetype=A), size=1)  + theme_classic() +
+  ylab("RT") +  scale_linetype_manual("Task", values =c(3,4),
+                                labels = c("A1", "A2")) +
+  scale_x_discrete(labels = c("B1", "B2", "B3")) +
+  theme(legend.position="top", 
+        panel.background =  element_rect(fill = "#FAFAFA", 
+                                         colour = "#FAFAFA"), 
+        plot.background = element_rect(fill = "#FAFAFA"), 
+        legend.key = element_rect(fill = "#FAFAFA"))
+```
+
+## The result
+
+```{r eval = TRUE, out.with="100%", echo=FALSE}
+ggplot(dat, aes(x = B, y = rt, group = A)) +  
+  geom_point(pch=dat$A, size = 5) + 
+  geom_line(aes(linetype=A), size=1)  + theme_classic() +
+  ylab("RT") +  scale_linetype_manual("Task", values =c(3,4),
+                                labels = c("A1", "A2")) +
+  scale_x_discrete(labels = c("B1", "B2", "B3")) +
+  theme(legend.position="top", 
+        panel.background =  element_rect(fill = "#FAFAFA", 
+                                         colour = "#FAFAFA"), 
+        plot.background = element_rect(fill = "#FAFAFA"), 
+        legend.key = element_rect(fill = "#FAFAFA"))
+```
+
+
+## Scatter plot 
+
+```{r eval = FALSE, echo = TRUE}
+states = data.frame(state.x77)
+ggplot(states,  # raw data
+               aes(x = Illiteracy, y = Murder)) + geom_point(size =3, pch=3) + theme_classic() + theme(legend.position = "none")
+```
+
+
+```{r}
+states = data.frame(state.x77)
+ggplot(states,  # raw data
+               aes(x = Illiteracy, y = Murder)) + geom_point(size =3, pch=3) + theme_classic() + theme(legend.position = "none")
+```
+
+
+## Linear model
+
+```{r echo = FALSE, eval =FALSE}
+ggplot(states,  # raw data
+               aes(x = Illiteracy, y = Murder)) + geom_point(size =3, pch=3) + theme_classic() + 
+  geom_smooth(method="lm", color="red", aes(fill="red")) + theme(legend.position = "none")
+```
+
+```{r}
+ggplot(states,  # raw data
+               aes(x = Illiteracy, y = Murder)) + geom_point(size =3, pch=3) + theme_classic() + 
+  geom_smooth(method="lm", color="red", aes(fill="red")) + theme(legend.position = "none")
+```
+
+## Different plots in the same panel
+
+\small 
+
+use `grid.arrange()` function from the `gridExtra` package: 
+
+```{r eval = FALSE}
+install.packages("gridExtra") ; library(gridExtra)
+```
+
+
+```{r eval = FALSE}
+murder_raw = ggplot(states,  # raw data
+               aes(x = Illiteracy, y = Murder)) +
+           .....
+
+murder_lm = ggplot(states,  # lm 
+               aes(x = Illiteracy, y = Murder)) +
+           .....
+            
+```
+
+Combine the plots together: 
+
+```{r eval = FALSE}
+grid.arrange(murder_raw, murder_lm, 
+             nrow=1) # plots forced to be the same row
+```
+
+ 
+
+## Combine the plots together 
+\small
+
+```{r echo = FALSE}
+
+murder_raw = ggplot(states,  # raw data
+               aes(x = Illiteracy, y = Murder)) + geom_point(size =3, pch=3) + theme_classic() + theme(legend.position = "none")
+
+murder_lm = ggplot(states,  # raw data
+               aes(x = Illiteracy, y = Murder)) + geom_point(size =3, pch=3) + theme_classic() + 
+  geom_smooth(method="lm", color="red", aes(fill="red")) + theme(legend.position = "none")
+```
+
+
+```{r echo = FALSE}
+grid.arrange(murder_raw, murder_lm, 
+             nrow=1)
+```
+
+
+
+## Multi Panel 
+
+```{r echo = FALSE, out.width="80%"}
+states = data.frame(state.x77, state.name = state.name,
+state.region = state.region)
+
+ggplot(states, 
+       aes(x = Population, y = Murder, 
+           size = Illiteracy)) + geom_point() +
+  facet_wrap(~state.region) + theme_bw() 
+```
+
+## Multi panel code 
+
+```{r eval=FALSE}
+states = data.frame(state.x77, state.name = state.name,
+                    state.region = state.region)
+
+ggplot(states, 
+       aes(x = Population, y = Murder, 
+           size = Illiteracy)) + geom_point() +
+  facet_wrap(~state.region) + theme_bw() 
+```
+
+
+## `boxplot()` e `violinplot()`
+
+Data need to be in long format:
+
+```{r echo = FALSE}
+data.frame(id = rep(paste0("sbj", 1:3), each = 2), 
+           condition = rep(c("A", "B"),  length.out = 6), 
+           mean_time = rgamma(6, 10, 3))
+
+```
+
+
+## 
+
+```{r}
+small = benessere[, c("ID", "score_au", "score_ben")]
+score_long  = reshape(small, 
+        idvar = "ID", 
+        times =names(small)[-1], 
+        timevar = "score", v.names = "value",
+        varying = list(names(small)[-1]), 
+        direction = "long")
+head(score_long)
+```
+
+## boxplot vs violinplot
+
+::: columns
+
+:::: column
+
+Boxplot
+\scriptsize
+
+```{r myline = 60}
+ggplot(score_long, 
+       aes(x = score, y = value,
+           fill = score)) + 
+  geom_boxplot()
+```
+
+
+::::
+
+:::: column
+
+Violinplot
+
+\scriptsize
+
+```{r myline =60}
+ggplot(score_long, 
+       aes(x = score, y = value,
+           fill = score)) + 
+  geom_violin(trim = FALSE) 
+```
+
+
+::::
+
+:::
+
+##
+
+\footnotesize
+
+```{r}
+
+score_long = merge(score_long, benessere[, c("ID", "genere")])
+
+ggplot(score_long, 
+       aes(x = score, y = value,
+           fill = genere)) + geom_violin(trim = FALSE) 
+```
+
+## barplot and histogram
+
+`geom_hist()`: histogram (continuous variables)
+
+`geom_bar()`: bar plot 
+
+Arguments: 
+
+- `geom_bar(stat = "count")`: automatically counts the frequencies for each category, **does not need a y variable**
+
+- `geom_bar(stat = "identity")`: plots a value associated to each category **does need a y variable**
+
+
+
+
+## `geom_bar(stat = "count")`:
+
+```{r}
+ggplot(benessere, 
+       aes(x = item5)) + geom_bar(stat = "count")
+```
+
+
+## `geom_bar(stat = "identity")`
+
+
+\footnotesize
+```{r out.width="45%"}
+item_5 = data.frame(table(benessere$item5)/nrow(benessere))
+item_5
+
+
+```
+
+## Now the plot
+
+```{r}
+ggplot(item_5, 
+       aes(x = Var1, y = Freq)) + geom_bar(stat = "identity")
+
+```
+
+
+
+## All together
+
+Long format
+
+\footnotesize
+```{r out.lines = 6}
+new_item = benessere[, c(grep("ID", colnames(benessere)), 
+                        grep("item", colnames(benessere)))]
+new_item = reshape(new_item, 
+        idvar = "ID", 
+        times =names(new_item)[-1], 
+        timevar = "item", v.names = "value",
+        varying = list(names(new_item)[-1]), 
+        direction = "long")
+new_item
+
+```
+
+## Calcolo le proporzioni
+
+Di ogni opzione di risposta `value` per ogni item `item`
+
+```{r out.lines = 6}
+proporzione = new_item %>% 
+  group_by(item, value) %>% 
+  summarise(prop = n()/nrow(benessere))
+
+proporzione
+```
+
+
+
+## The plot (finally)
+
+```{r}
+ggplot(proporzione, 
+       aes(x = value, y = prop)) + 
+  geom_bar(stat = "identity") + 
+  facet_wrap(~item) 
+
+```
+
+
+
+# Esport graphs
+
+## In automnatico
+
+
+```{r eval = F}
+pdf("nome_grafico.pdf")
+png("nome_grafico.png")          
+tiff("nome_grafico.tiff")
+jpeg("nome_grafico.jpeg")
+bmp("nome_grafico.bmp")
+```
+
+Rember to turn off the graphical device
+
+```{r eval=FALSE}
+dev.off()
+```
+
+## Example
+
+```{r eval=FALSE}
+pdf("il_mio_violin.pdf")
+ggplot(score_long, 
+       aes(x = score, y = value,
+           fill = score)) + geom_violin(trim = FALSE) 
+dev.off()
+```
+
+
+
+## Manually
+
+
+```{r eval = FALSE, out.width="120%"}
+knitr::include_graphics("data/esporta.png")
+```
+
+
+
+# `R` for statistical computing
+
+## 
+
+The `stats` package (built-in package in `R`) contains function for statistical calculations and random number generator
+
+see `library(help=stats)`
+
+# Classical hypothesis testing in R
+
+## 
+
+
+
+- `chisq.test()`: contingency table  $\chi^2$ tests 
+- `cor.test()`: association between paired samples
+- `t.test()`: one- and two-sample *t* tests (also for paired data)
+- `lm(y ~ x1 + x2 + x3 ...)`: fit a linear model
+- `glm(y ~ x1 + x2 + x3 ...)`: fit a generalize linear model
+
+
+## What is the *p*-value?
+
+*p*-value: 
+
+>conditional probability of obtaining a test stastic that is at least as extreme as the one observed, given that the null hyphothesis is true
+
+If $p < \alpha$ (i.e., the probability of rejecting the null hypothesis when it is true) $\rightarrow$ the null hypothesis is rejected
+
+```{r echo=FALSE, out.width="50%"}
+curve(dnorm(x,0,1),xlim=c(-4,4), 
+      bty = "n", xlab = "Value of test statistic", xaxt="n", 
+      yaxt="n", ylab = "Density of the sampling distribution", lwd =2)
+Axis(side=1, labels=FALSE, cex.axis = 1.5, padj = -1)
+abline(v = -1.96, lty=2)
+abline(v = 1.96, lty=2)
+
+text(expression(alpha/2), x = -2.8, y = 0.15, cex = 2)
+text(expression(alpha/2), x = 2.8, y = 0.15, cex = 2)
+text(expression(paste("1 - ", alpha)), x = -0.0, y = 0.15, cex = 2)
+
+```
+
+
+
+## $\chi^2$ test 
+
+Independence of observations
+
+Hypothesis: 
+
+- $H_0$: $P(X_{ij} = k) = p_k$ for all $i=1, \ldots, r$ and $j=1, \ldots, c$
+
+- $H_0$: $P(X_{ij} = k) \neq P(X_{i'j} = k)$ for *at least* one $i \in \{1, \ldots, r\}$ and $j \in \{1, \ldots, c\}$
+
+Test statistic: 
+
+$$\chi^2 = \displaystyle \sum_{i=1}^{n}\frac{(x_{ij} - \hat{x}_{ij})^2}{\hat{x}_{ij}}, \, \, \chi^2 \sim \chi^2(r-1)(c-1)$$
+
+In `R`: 
+
+```{r eval=FALSE}
+tab <- xtabs(~ education + induced, infert)
+chisq.test(tab)
+```
+
+
+## Correlation test
+
+Hypothesis: 
+
+- $H_0$: $\rho_{XY} = 0$, $H_1$: $\rho_{xy} \neq 0$
+- $H_0$: $\rho_{XY} = 0$, $H_1$: $\rho_{xy} < 0$
+- $H_0$: $\rho_{XY} = 0$, $H_1$: $\rho_{xy} >0$
+
+Test statistic: 
+
+$$T = \frac{r_{xy}}{\sqrt{1-r_{xy}^2}}\sqrt{n-2}, \, \, T \sim t(n-2)$$
+In `R`:
+
+```{r eval=FALSE}
+cor.test(~ speed + dist, cars, 
+         alternative = "two.sided")
+```
+
+## Correlation matrix 
+
+```{r}
+cor(benessere[, grep("item", colnames(benessere))])
+```
+
+
+
+## Two (indepdent) sample $t$ test
+
+Independent samples from normally distributions where $\sigma^2$ are unknown but homogeneous 
+
+- $H_0$: $\mu_{x_1 - x_2} = 0$, $H_1$: $\mu_{x_1 - x_2} \neq 0$
+- $H_0$: $\mu_{x_1 - x_2} = 0$, $H_1$: $\mu_{x_1 - x_2} < 0$
+- $H_0$: $\mu_{x_1 - x_2} = 0$, $H_1$: $\mu_{x_1 - x_2} > 0$
+
+Test statistic: 
+
+$$T = \frac{\bar{x_1} - \bar{x_2}}{\sigma_{\bar{x_1}-\bar{y_2}}}, \, \, T \sim t(n_1 + n_2 - 2)$$
+
+`R` function: 
+
+```{r eval=FALSE}
+t.test(len ~ supp, data = ToothGrowth, 
+       var.equal = FALSE)
+```
+
+## Two (depedent) sample $t$ test
+
+Observations on the same sample
+
+Hypothesis:
+
+- $H_0$: $\mu_{D} = 0$, $H_1$: $\mu_{D} \neq 0$
+- $H_0$: $\mu_{D} = 0$, $H_1$: $\mu_{D} < 0$
+- $H_0$: $\mu_{D} = 0$, $H_1$: $\mu_{D} > 0$
+
+Test statistic: 
+
+$$T = \frac{d}{\sigma_{d}}, \, \, \, T \sim t(m-1)$$
+
+
+
+
+`R` function: 
+
+```{r eval=FALSE}
+with(sleep,
+     t.test(extra[group == 1],
+            extra[group == 2], paired = TRUE))
+```
+
+# Generalized Linear Models (GLMs)
+
+## Formulae
+
+Statistical models are represented by formulae which are extremely close to the actual statistical notation: 
+
+| in `R`               | Model                                                                                           |
+|----------------------|-------------------------------------------------------------------------------------------------|
+| `y ~ 1 + x`          |  $y_i   = \beta_0 + \beta_1 x_i + \varepsilon_i$                                                |
+| `y ~ x`              |  (same but short)                                                                               |
+| `y ~ 0 + x`          |  $y_i = \beta_1 x_i +   \varepsilon_i$                                                          |
+| `y ~ x_A * x_B`      |  $y_i = \beta_0 + \beta_1 x_i +   \beta_2 x_j + (\beta_1 \beta_2)x_{ij}    + \varepsilon_{ij}$  |
+
+## Linear models 
+
+$$y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \ldots + \beta_kx_k + \varepsilon$$
+In `R`: 
+
+```{r eval = FALSE}
+lm(y ~ x1 + x2 + ... + xk, data)
+```
+
+## Extractor functions I 
+
+```{r eval = FALSE}
+coef()    # Extract the regression coefficients
+summary() # Print a comprehensive summary of the results of
+          # the regression analysis
+anova()   # Compare nested models and produce an analysis
+resid()   # Extract the (matrix of) residuals
+plot()    # Produce four plots, showing residuals, fitted
+          # values and some diagnostics
+model.matrix()
+          # Return the design matrix
+```
+
+## Extractor functions II 
+
+```{r eval = FALSE}
+vcov()    # Return the variance-covariance matrix of the
+          # main parameters of a fitted model object
+predict() # A new data frame must be supplied having the
+          # same variables specified with the same labels
+          # as the original. The value is a vector or
+          # matrix of predicted values corresponding to
+          # the determining variable values in data frame
+step()    # Select a suitable model by adding or dropping
+          # terms and preserving hierarchies. The model
+          # with the smallest value of AIC (Akaike’s
+          # Information Criterion) discovered in the
+          # stepwise search is returned
+```
+
+
+
+## Generalized linear models
+
+$$g(\mu) = \beta_0 + \beta_1x_1 + \beta_2x_2 + \ldots + \beta_kx_k + \varepsilon$$
+$g()$ is the link functions that connects the mean to the linear combination of predictors. 
+
+A GLM is composed of three elements: The response distribution, the link function, and the linear combination of predictors
+
+In `R`:
+
+```{r eval=FALSE}
+glm(y ~ x1 + x2 + ... + xk, family(link), data)
+```
+
+## LM: data
+```{r echo = FALSE, warning=FALSE, out.width="90%",fig.align='center'}
+samples <- 500
+r <- 0.55
+r_neg <- -0.95
+library('MASS')
+data <- data.frame(mvrnorm(n=samples, 
+                           mu=c(1, 1), 
+                           Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE))
+colnames(data) <- c("x", "y")
+data$x = data$x *2
+data$y = (data$y +5 )*2
+data$z <- ifelse(data$y < 11, 0, 1)
+model_bin <- glm(z ~x, data = data, family = "binomial")
+model = lm(y ~ x, data = data)
+ggplot(data, aes(y=y, x = fitted.values(model))) + 
+  geom_point(size = 3, alpha = 0.6)  +
+  geom_smooth(method="lm",  
+              color = "royalblue", 
+              se=TRUE, fill = "lightblue") + 
+  ylab("y") + 
+  xlab("x") + 
+  theme_minimal() +
+  theme(axis.ticks.y = element_blank(), 
+        axis.title = element_text(size = 26,  face="italic"), 
+        axis.text = element_text(size = 22), 
+        panel.border = element_blank()) 
+```
+
+
+## LM: Model
+
+\scriptsize
+
+```{r echo = TRUE}
+model = lm(y ~ x, data = data)
+summary(model)
+```
+
+
+## Diagnostic 
+
+```{r}
+par(mfrow = c(2,2))
+plot(model)
+```
+
+
+## GLM: Data
+
+```{r echo = FALSE}
+ggplot(data, aes(y=z, x = fitted.values(model_bin))) + 
+  geom_point(size = 3, alpha = 0.6)  +
+  geom_smooth(method="glm", 
+              method.args=list(family="binomial"), 
+              color = "royalblue", 
+              se=TRUE, fill = "lightblue") + 
+  ylab(expression(paste("P"))) + 
+  xlab(expression(paste("Linear combination of predictors"))) + 
+  theme_minimal() +
+  theme(axis.ticks.y = element_blank(), 
+        axis.title.x = element_text(size = 26), 
+        axis.title.y = element_text(size = 26), 
+        axis.text = element_text(size = 22), 
+        panel.border = element_blank()) 
+```
+
+## GLM: Model
+
+\scriptsize
+```{r}
+model_bin <- glm(z ~x, data = data, family = "binomial")
+summary(model_bin)
+
+```
+
+
+## Interpreting the parameters
+
+```{r}
+# the coefficients are on the log-odds scale 
+my_coef = coef(model_bin)
+# this function yields the probabilty values
+binomial()$linkinv(my_coef)
+
+
+
+```
+
+
+
+
+## Families 
+
+A special link function to each response variable. In `R` some different link functions are available by default:
+
+```{r eval = FALSE}
+## Family name     Link functions
+Binomial           logit, probit, log, cloglog
+gaussian           identity, log, inverse
+Gamma              identity, inverse, log
+inverse.gaussian   1/mu^2, identity, inverse, log
+poisson            log, identity, sqrt
+quasi              logit, probit, cloglog, identity, inverse, 
+                   log, 1/mu^2, sqrt
+```
+
+
+

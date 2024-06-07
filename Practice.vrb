@@ -1,0 +1,26 @@
+\frametitle{Multiplot (in colonna), codice}
+\protect\hypertarget{multiplot-in-colonna-codice}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfcol=} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{hist}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_au,}\AttributeTok{density=}\DecValTok{50}\NormalTok{, }\AttributeTok{breaks=}\DecValTok{20}\NormalTok{, }\AttributeTok{prob=}\ConstantTok{TRUE}\NormalTok{, }
+     \AttributeTok{main =} \StringTok{"Score au"}\NormalTok{)}
+\FunctionTok{curve}\NormalTok{(}\FunctionTok{dnorm}\NormalTok{(x, }\AttributeTok{mean=}\FunctionTok{mean}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_au), }
+            \AttributeTok{sd=}\FunctionTok{sd}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_au)), }
+      \AttributeTok{col=}\StringTok{"springgreen4"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{add=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{yaxt=}\StringTok{"n"}\NormalTok{)}
+
+\FunctionTok{hist}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_ben,}\AttributeTok{density=}\DecValTok{50}\NormalTok{, }\AttributeTok{breaks=}\DecValTok{20}\NormalTok{, }\AttributeTok{prob=}\ConstantTok{TRUE}\NormalTok{, }
+     \AttributeTok{main =} \StringTok{"Score benessere"}\NormalTok{)}
+\FunctionTok{curve}\NormalTok{(}\FunctionTok{dnorm}\NormalTok{(x, }\AttributeTok{mean=}\FunctionTok{mean}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_ben), }
+            \AttributeTok{sd=}\FunctionTok{sd}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_ben)), }
+      \AttributeTok{col=}\StringTok{"royalblue"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{add=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{yaxt=}\StringTok{"n"}\NormalTok{)}
+
+\FunctionTok{with}\NormalTok{(benessere, }
+     \FunctionTok{plot}\NormalTok{(score\_au, score\_ben, }\AttributeTok{frame =} \ConstantTok{FALSE}\NormalTok{))}
+
+
+\FunctionTok{with}\NormalTok{(benessere, }
+     \FunctionTok{plot}\NormalTok{(score\_au, score\_ben, }\AttributeTok{frame =} \ConstantTok{FALSE}\NormalTok{))}
+\FunctionTok{abline}\NormalTok{(}\FunctionTok{lm}\NormalTok{(score\_ben }\SpecialCharTok{\textasciitilde{}}\NormalTok{ score\_au, }\AttributeTok{data =}\NormalTok{ benessere), }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}

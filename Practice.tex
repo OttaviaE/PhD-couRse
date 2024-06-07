@@ -1,0 +1,2058 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  ignorenonframetext,
+]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{part title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\usetheme[]{EastLansing}
+\usecolortheme{dove}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\newif\ifbibliography
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{255,255,255}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.75,0.01,0.01}{\textbf{\colorbox[rgb]{0.97,0.90,0.90}{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.79,0.38,0.79}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.00,0.34,0.68}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.69,0.50,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.39,0.29,0.61}{\textbf{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.57,0.30,0.62}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.54,0.53,0.53}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.00,0.58,1.00}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.67,0.33,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.12,0.11,0.11}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.00,0.34,0.68}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.69,0.50,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.38,0.47,0.50}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.75,0.01,0.01}{\underline{#1}}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.58,1.00}{\textbf{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.69,0.50,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.39,0.29,0.61}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{1.00,0.33,0.00}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.69,0.50,0.00}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.12,0.11,0.11}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.12,0.11,0.11}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.12,0.11,0.11}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.43,0.16}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.00,0.43,0.16}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.34,0.68}{\colorbox[rgb]{0.88,0.91,0.97}{#1}}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.24,0.68,0.91}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{1.00,0.33,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.75,0.01,0.01}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.34,0.68}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.75,0.01,0.01}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.75,0.01,0.01}{#1}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+\usepackage{caption}
+% Make caption package work with longtable
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\AtBeginDocument{\title[co\texttt{R}so]{01-P\texttt{R}actice}}
+\AtBeginDocument{\author[OME, UniPD]{Ottavia M. Epifania, Ph.D}}
+\AtBeginDocument{\date[13 Giugno]{13 Giugno 2024}}
+\AtBeginDocument{\institute[Lezioni UniCatt]{Lezione di Dottorato @Università Cattolica del Sacro Cuore (MI)}}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{tabularx}
+\usetheme[compressed]{Singapore}
+\usepackage[english]{babel}
+\usepackage{tikzsymbols}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{spot}
+\usepackage{tabularx}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{booktabs}
+\newcommand\Factor{1.2}
+\setbeamerfont{subtitle}{size=\large, series=\bfseries}
+\definecolor{template}{RGB}{155, 0, 20}
+\definecolor{background}{RGB}{250, 250, 250}
+\setbeamercolor{frametitle}{bg=background}
+\setbeamertemplate{frametitle}{\color{template}\bfseries\insertframetitle\par\vskip-6pt\hrulefill}
+\AtBeginSection{\frame{\sectionpage}}
+\setbeamercolor{section name}{fg=white}
+\setbeamercolor{title}{fg=template, bg=background}
+\setbeamercolor{section title}{fg=template}
+\setbeamercolor{frame subtitle}{fg=template}
+\setbeamercolor{title}{fg=template}
+\setbeamercolor{background canvas}{bg=background}
+\setbeamersize{text margin left=5mm,text margin right=5mm}
+\AtBeginSection[] { \begin{frame}[plain] \frametitle{Table of Contents} \tableofcontents[currentsection] \end{frame} }
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={01-PRactice},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{01-P\texttt{R}actice}
+\author{Ottavia M. Epifania\\
+Università di Padova}
+\date{June, 13 2024}
+\institute{Lezione di Dottorato @Università Cattolica del Sacro Cuore
+(MI)}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Table of contents}
+\protect\hypertarget{table-of-contents}{}
+\tableofcontents
+\end{frame}
+
+\hypertarget{import-data}{%
+\section{Import data}\label{import-data}}
+
+\begin{frame}[fragile]{\texttt{Import\ csv}}
+\protect\hypertarget{import-csv}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{=} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/benessere.csv"}\NormalTok{, }
+                \AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{, }
+                \AttributeTok{sep =}\StringTok{","}\NormalTok{, }\AttributeTok{dec =} \StringTok{"."}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  benessere stipendio genere
+1         5 1461.0983      m
+2         7 1132.3637      f
+3         7 1675.9004      m
+4         2  328.9587      f
+5         6 1370.0146      m
+6         5  954.3540      f
+\end{verbatim}
+\end{frame}
+
+\hypertarget{compute-sum-scores}{%
+\section{Compute sum scores}\label{compute-sum-scores}}
+
+\begin{frame}[fragile]{}
+\protect\hypertarget{section}{}
+Data set is in wide format
+
+\begin{itemize}
+\tightlist
+\item
+  Sum across columns \(\rightarrow\) sum scores of the respondents
+\end{itemize}
+
+\begin{quote}
+\texttt{rowSums()} (\texttt{rowMean()} for computing the mean)
+\end{quote}
+
+\begin{itemize}
+\tightlist
+\item
+  Sum across rows (righe) \(\rightarrow\) sum scores of the items
+\end{itemize}
+
+\begin{quote}
+\texttt{colSums()} (\texttt{colMean()} for computing the mean)
+\end{quote}
+\end{frame}
+
+\begin{frame}[fragile]{Well-being}
+\protect\hypertarget{well-being}{}
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readxl)}
+\NormalTok{benessere }\OtherTok{=} \FunctionTok{read\_xlsx}\NormalTok{(}\StringTok{"data/datiBenessere.xlsx"}\NormalTok{)}
+
+\FunctionTok{head}\NormalTok{(benessere,}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 2 x 19
+     ID   età genere  frat item1 item2 item3 item4 item5   au1   au2   au3   au4
+  <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+1     1    16      1     0     1     2     4     3     4     5     4     5     2
+2     2    21      1     1     2     2     3     4     3     5     4     5     2
+# i 6 more variables: au5 <dbl>, au6 <dbl>, au7 <dbl>, au8 <dbl>, au9 <dbl>,
+#   au10 <dbl>
+\end{verbatim}
+
+\normalsize
+
+\texttt{rowSums()} :
+
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rowSums}\NormalTok{(benessere)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  [1]  65  79  88  74  75  83  78  79  85  87  80  88  83  84  92 103  88 101
+ [19]  79  83 112 105  98  86  94  94 120 108  98 100 107 111 113 111 112 104
+ [37] 100 108 107 126 126 116 116 110 117 117 106 111 122 123 129 146 134 118
+ [55] 121 120 121 148 141 129 130 128 132 148 145 152 136 137 138 145 135 136
+ [73] 140 140 143 151 148 158 156 143 149 157 165 162 159 170 163 167 163 144
+ [91] 149 168 173 176 162 171 174 169 176 172 175 175 172 182 191 186 175 187
+[109] 178 190 189 186 184 174 187 189 190 187 199 192 191 194 199 188 206 198
+[127] 207 214 208 213 214 205 205 207 227 212 213 208 209 209 216 211 211 216
+[145] 208 216 215 219 222 210
+\end{verbatim}
+
+Is it meaningful\ldots.?
+\end{frame}
+
+\begin{frame}[fragile]{Conditioning according to variable labels}
+\protect\hypertarget{conditioning-according-to-variable-labels}{}
+They must present a regular expression (common root):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(benessere)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "ID" "età" "genere" "frat" "item1" "item2"
+"item3" "item4"
+[9] "item5" "au1" "au2" "au3" "au4" "au5" "au6"
+"au7"
+[17] "au8" "au9" "au10"
+\end{verbatim}
+
+Columns with \texttt{item} \(\rightarrow\) well-being items
+
+Columns with \texttt{au} \(\rightarrow\) self-esteem items
+\end{frame}
+
+\begin{frame}[fragile]{}
+\protect\hypertarget{section-1}{}
+\texttt{grep()}e \texttt{grepl()}: functions for filtering data
+according to a \texttt{reg}ular \texttt{exp}ression (\texttt{regex})
+
+\begin{center}
+\texttt{grep("regex", vector)}
+\end{center}
+
+Same functioning, different results
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\AttributeTok{my\_vector =} \FunctionTok{colnames}\NormalTok{(benessere))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "ID"     "età"    "genere" "frat"   "item1"  "item2"  "item3"  "item4" 
+ [9] "item5"  "au1"    "au2"    "au3"    "au4"    "au5"    "au6"    "au7"   
+[17] "au8"    "au9"    "au10"  
+\end{verbatim}
+
+\texttt{grep()}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{grep}\NormalTok{(}\StringTok{"au"}\NormalTok{, my\_vector)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] 10 11 12 13 14 15 16 17 18 19
+\end{verbatim}
+
+\texttt{grepl()}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{grepl}\NormalTok{(}\StringTok{"au"}\NormalTok{, my\_vector)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
+[13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Compute sum scores}
+\protect\hypertarget{compute-sum-scores-1}{}
+\texttt{rowSums()} conditioned on specific columns:
+
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\FunctionTok{rowSums}\NormalTok{(benessere[, }\FunctionTok{grep}\NormalTok{(}\StringTok{"item"}\NormalTok{, }\FunctionTok{colnames}\NormalTok{(benessere))])[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{15}\NormalTok{], }\StringTok{"..."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+14 14 13 13 17 10 16 16 9 13 14 16 17 12 9 ...
+\end{verbatim}
+
+Assign to a new column (new variable)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{benessere}\SpecialCharTok{$}\NormalTok{score\_ben }\OtherTok{=} \FunctionTok{rowSums}\NormalTok{(benessere[, }\FunctionTok{grep}\NormalTok{(}\StringTok{"item"}\NormalTok{, }\FunctionTok{colnames}\NormalTok{(benessere))])}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{summary()}}
+\protect\hypertarget{summary}{}
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{babies }\OtherTok{\textless{}{-}} \FunctionTok{read.table}\NormalTok{(}\StringTok{"data/babies.tab"}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(babies}\SpecialCharTok{$}\NormalTok{peso)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  5.411   7.809   9.429   9.970  11.268  17.343 
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{data set}
+\protect\hypertarget{data-set}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(babies)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      id               genere               peso           altezza     
+ Length:10          Length:10          Min.   : 5.411   Min.   :46.80  
+ Class :character   Class :character   1st Qu.: 7.809   1st Qu.:62.90  
+ Mode  :character   Mode  :character   Median : 9.429   Median :78.73  
+                                       Mean   : 9.970   Mean   :74.88  
+                                       3rd Qu.:11.268   3rd Qu.:84.98  
+                                       Max.   :17.343   Max.   :99.22  
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{table()}}
+\protect\hypertarget{table}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(babies}\SpecialCharTok{$}\NormalTok{genere)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+f m 
+6 4 
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Contingency tables}
+\protect\hypertarget{contingency-tables}{}
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{benessere }\OtherTok{=} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/benessere.csv"}\NormalTok{, }\AttributeTok{header =}\NormalTok{ T)}
+\CommentTok{\# creo una nuova variabile dicotomica per descrivere }
+\CommentTok{\# il livello di benessere}
+\NormalTok{benessere}\SpecialCharTok{$}\NormalTok{new\_benessere }\OtherTok{=} \FunctionTok{with}\NormalTok{(benessere, }
+                               \FunctionTok{ifelse}\NormalTok{(benessere }\SpecialCharTok{\textgreater{}} \FunctionTok{mean}\NormalTok{(benessere), }
+                                      \StringTok{"alto"}\NormalTok{, }
+                                      \StringTok{"basso"}\NormalTok{))}
+\FunctionTok{with}\NormalTok{(benessere, }\FunctionTok{table}\NormalTok{(new\_benessere, genere))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+             genere
+new_benessere  f  m
+        alto  22 18
+        basso 32 28
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{table()} and percentages}
+\protect\hypertarget{table-and-percentages}{}
+\small
+
+Single variable
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FunctionTok{table}\NormalTok{(babies}\SpecialCharTok{$}\NormalTok{genere)}\SpecialCharTok{/}\FunctionTok{nrow}\NormalTok{(babies))}\SpecialCharTok{*}\DecValTok{100}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+ f  m 
+60 40 
+\end{verbatim}
+
+Multiple variables
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_perc }\OtherTok{=} \FunctionTok{with}\NormalTok{(benessere, }\FunctionTok{table}\NormalTok{(new\_benessere, genere))}
+\NormalTok{(}\AttributeTok{my\_perc =} \FunctionTok{cbind}\NormalTok{(my\_perc, }\FunctionTok{rowSums}\NormalTok{(my\_perc)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       f  m   
+alto  22 18 40
+basso 32 28 60
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{}
+\protect\hypertarget{section-2}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ta{-}dan!}
+\NormalTok{my\_perc}\SpecialCharTok{/}\NormalTok{my\_perc[,}\DecValTok{3}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+              f         m  
+alto  0.5500000 0.4500000 1
+basso 0.5333333 0.4666667 1
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Aggregating}
+\protect\hypertarget{aggregating}{}
+Aggregate a response variable according to grouping variable(s) (e.g.,
+averaging per experimental conditions):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# one depenent variable (y) and single grouping variable}
+\FunctionTok{aggregate}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ data, FUN, ...)}
+
+\CommentTok{\# Multiple response variables, multiple grouping variables}
+\FunctionTok{aggregate}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(y1, y2) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x1 }\SpecialCharTok{+}\NormalTok{ x2, }\AttributeTok{data =}\NormalTok{ data, FUN, ...)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Aggregating: Examples}
+\protect\hypertarget{aggregating-examples}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{benessere }\OtherTok{=} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/benessereScores.csv"}\NormalTok{, }\AttributeTok{header =}\NormalTok{ T, }\AttributeTok{sep =}\StringTok{","}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(benessere)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  ID età genere frat item1 item2 item3 item4 item5 au1 au2 au3 au4 au5 au6 au7
+1  1  16      1    0     1     2     4     3     4   5   4   5   2   3   3   1
+2  2  21      1    1     2     2     3     4     3   5   4   5   2   4   4   5
+3  3  28      2    4     2     3     5     1     2   4   4   4   4   4   4   4
+4  4  15      2    2     3     4     2     2     2   4   5   5   3   5   4   2
+5  5  23      1    3     4     5     1     5     2   3   2   3   2   4   3   1
+6  6  31      1    2     2     3     2     1     2   5   1   5   1   4   5   1
+  au8 au9 au10 score_ben score_au
+1   4   2    4        14       33
+2   5   1    5        14       40
+3   4   2    4        13       38
+4   4   2    4        13       38
+5   4   1    3        17       26
+6   5   1    5        10       33
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{}
+\protect\hypertarget{section-3}{}
+\normalsize
+
+Compute the mean of the self esteem according to gender
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{aggregate}\NormalTok{(score\_au }\SpecialCharTok{\textasciitilde{}}\NormalTok{ genere, }\AttributeTok{data =}\NormalTok{ benessere, mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  genere score_au
+1      1 33.08750
+2      2 32.62857
+\end{verbatim}
+
+Compute the mean according of self esteem and well being according to
+gender
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{aggregate}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(score\_ben, score\_au) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ genere, }\AttributeTok{data =}\NormalTok{ benessere, mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  genere score_ben score_au
+1      1  14.46250 33.08750
+2      2  14.41429 32.62857
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Your turn!}
+\protect\hypertarget{your-turn}{}
+\begin{center}\includegraphics[width=0.15\linewidth]{img/work} \end{center}
+
+\small
+
+\begin{itemize}
+\item
+  Recode \texttt{frat} and assign it to a new var into the data frame
+  (\texttt{siblings}: \textgreater{} 0 siblings \(\rightarrow\) no
+  \textgreater{} \textgreater{} 1+ sibilings \(\rightarrow\) yes
+\item
+  Compute the mean of \texttt{score\_ben} according to \texttt{siblings}
+\item
+  Compute the mean of \texttt{score\_ben} and \texttt{score\_au}
+  according to \texttt{sibilings}and gender (assign it to the object
+  \texttt{mean\_dep})
+\item
+  Compute the standard deviation of \texttt{score\_ben} and
+  \texttt{score\_au} according to \texttt{sibilings}and gender (assign
+  it to the object \texttt{sd\_dep})
+\item
+  merge \texttt{mean\_dep} and \texttt{sd\_dep} and assign the resulting
+  object to \texttt{descr}
+\end{itemize}
+
+\begin{alertblock}{WARNING!}
+
+When using merge the column names must be different
+
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Result}
+\protect\hypertarget{result}{}
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{descr}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  siblings genere mean_score_ben mean_score_au sd_score_ben sd_score_au
+1       no      1       13.90909      33.27273     3.250042    4.452734
+2       no      2       14.51852      32.11111     3.309315    3.004270
+3      yes      1       14.67241      33.01724     3.347625    3.743961
+4      yes      2       14.34884      32.95349     3.228472    4.396717
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Solution}
+\protect\hypertarget{solution}{}
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{benessere}\SpecialCharTok{$}\NormalTok{siblings }\OtherTok{=} \FunctionTok{ifelse}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{frat }\SpecialCharTok{==} \DecValTok{0}\NormalTok{, }\StringTok{"no"}\NormalTok{, }\StringTok{"yes"}\NormalTok{)}
+
+\NormalTok{mean\_dep }\OtherTok{=} \FunctionTok{aggregate}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(score\_ben, score\_au) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ siblings }\SpecialCharTok{+}\NormalTok{ genere, }
+                     \AttributeTok{data =}\NormalTok{ benessere, }
+\NormalTok{                     mean)}
+\FunctionTok{colnames}\NormalTok{(mean\_dep)[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{4}\NormalTok{] }\OtherTok{=} \FunctionTok{paste}\NormalTok{(}\StringTok{"mean"}\NormalTok{, }
+                                \FunctionTok{colnames}\NormalTok{(mean\_dep)[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{4}\NormalTok{], }
+                                \AttributeTok{sep =} \StringTok{"\_"}\NormalTok{)}
+\NormalTok{sd\_dep }\OtherTok{=} \FunctionTok{aggregate}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(score\_ben, score\_au) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ siblings }\SpecialCharTok{+}\NormalTok{ genere, }
+                     \AttributeTok{data =}\NormalTok{ benessere, }
+\NormalTok{                   sd)}
+\FunctionTok{colnames}\NormalTok{(sd\_dep)[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{4}\NormalTok{] }\OtherTok{=} \FunctionTok{paste}\NormalTok{(}\StringTok{"sd"}\NormalTok{, }\FunctionTok{colnames}\NormalTok{(sd\_dep)[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{4}\NormalTok{], }
+                              \AttributeTok{sep =}  \StringTok{"\_"}\NormalTok{)}
+
+\NormalTok{descr }\OtherTok{=} \FunctionTok{merge}\NormalTok{(mean\_dep, sd\_dep)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{tidyverse()}}
+\protect\hypertarget{tidyverse}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\pause
+
+\textbackslash begin\{center\}
+
+\textbackslash texttt\{\%\textgreater\%\} (Pipe)
+
+\textbackslash end\{center\}
+
+Use the combo \texttt{shift\ +\ ctrl\ +\ M}
+
+Logic:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{object }\SpecialCharTok{\%\textgreater{}\%}  
+\NormalTok{  grouping }\SpecialCharTok{\%\textgreater{}\%} 
+  \ControlFlowTok{function}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Descriptive statistica}
+\protect\hypertarget{descriptive-statistica}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{benessere }\SpecialCharTok{\%\textgreater{}\%}  \CommentTok{\# object}
+  \FunctionTok{group\_by}\NormalTok{(siblings, genere) }\SpecialCharTok{\%\textgreater{}\%}  \CommentTok{\# groupings}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{m\_benessere =} \FunctionTok{mean}\NormalTok{(score\_ben),  }\CommentTok{\# functions}
+            \AttributeTok{sd\_benessere =} \FunctionTok{sd}\NormalTok{(score\_ben), }
+            \AttributeTok{m\_au =} \FunctionTok{mean}\NormalTok{(score\_au), }
+            \AttributeTok{sd\_au =} \FunctionTok{sd}\NormalTok{(score\_au))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 4 x 6
+# Groups:   siblings [2]
+  siblings genere m_benessere sd_benessere  m_au sd_au
+  <chr>     <int>       <dbl>        <dbl> <dbl> <dbl>
+1 no            1        13.9         3.25  33.3  4.45
+2 no            2        14.5         3.31  32.1  3.00
+3 yes           1        14.7         3.35  33.0  3.74
+4 yes           2        14.3         3.23  33.0  4.40
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Your turn!}
+\protect\hypertarget{your-turn-1}{}
+\begin{center}\includegraphics[width=0.15\linewidth]{img/work} \end{center}
+
+\begin{itemize}
+\item
+  Compute minimum, maximum, median of \texttt{score\_au} and
+  \texttt{score\_ben} with \texttt{tidyverse}
+\item
+  Import the \texttt{babies} datas set and compute the descriptive stats
+  of weight and height with\texttt{tidyverse}
+\end{itemize}
+\end{frame}
+
+\hypertarget{graphics}{%
+\section{Graphics}\label{graphics}}
+
+\begin{frame}[fragile]{}
+\protect\hypertarget{section-4}{}
+\begin{itemize}
+\tightlist
+\item
+  Traditional graphics
+\item
+  Grid graphics \& \texttt{ggplot2}
+\end{itemize}
+
+For both:
+
+\begin{itemize}
+\tightlist
+\item
+  High level functions \(\rightarrow\) actually produce the plot
+\item
+  Low level functions \(\rightarrow\) make it looks better =)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Traditional graphics I}
+\protect\hypertarget{traditional-graphics-i}{}
+High level functions
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{()      }\CommentTok{\# scatter plot, specialized plot methods}
+\FunctionTok{boxplot}\NormalTok{()}
+\FunctionTok{hist}\NormalTok{()      }\CommentTok{\# histogram}
+\FunctionTok{qqnorm}\NormalTok{()    }\CommentTok{\# quantile{-}quantile plot}
+\FunctionTok{barplot}\NormalTok{()}
+\FunctionTok{pie}\NormalTok{()       }\CommentTok{\# pie chart}
+\FunctionTok{pairs}\NormalTok{()     }\CommentTok{\# scatter plot matrix}
+\FunctionTok{persp}\NormalTok{()     }\CommentTok{\# 3d plot}
+\FunctionTok{contour}\NormalTok{()   }\CommentTok{\# contour plot}
+\FunctionTok{coplot}\NormalTok{()    }\CommentTok{\# conditional plot}
+\FunctionTok{interaction.plot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{demo(graphics)} for a guided tour of base graphics!
+\end{frame}
+
+\begin{frame}[fragile]{Traditional graphics II}
+\protect\hypertarget{traditional-graphics-ii}{}
+Low level functions
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{points}\NormalTok{()       }\CommentTok{\# add points}
+\FunctionTok{lines}\NormalTok{()        }\CommentTok{\# add lines}
+\FunctionTok{rect}\NormalTok{()}
+\FunctionTok{polygon}\NormalTok{()}
+\FunctionTok{abline}\NormalTok{()       }\CommentTok{\# add line with intercept a, slope b}
+\FunctionTok{arrows}\NormalTok{()}
+\FunctionTok{text}\NormalTok{()         }\CommentTok{\# add text in plotting region}
+\FunctionTok{mtext}\NormalTok{()        }\CommentTok{\# add text in margins region}
+\FunctionTok{axis}\NormalTok{()         }\CommentTok{\# customize axes}
+\FunctionTok{box}\NormalTok{()          }\CommentTok{\# box around plot}
+\FunctionTok{legend}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}{Plot layout}
+\protect\hypertarget{plot-layout}{}
+Each plot is composed of two regions:
+
+\begin{itemize}
+\tightlist
+\item
+  The plotting regions (contains the actual plot)
+\item
+  The margins region (contain axes and labels)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{A scatter plot:}
+\protect\hypertarget{a-scatter-plot}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(}\DecValTok{50}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{) }\CommentTok{\# 50 uniform random numbers}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(}\DecValTok{50}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(x, y, }\AttributeTok{main=}\StringTok{"Title"}\NormalTok{, }
+     \AttributeTok{sub=}\StringTok{"Subtitle"}\NormalTok{, }\AttributeTok{xlab=}\StringTok{"x{-}label"}\NormalTok{,}
+     \AttributeTok{ylab=}\StringTok{"y{-}label"}\NormalTok{) }\CommentTok{\# produce plotting window}
+\end{Highlighting}
+\end{Shaded}
+
+Now add some text:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{text}\NormalTok{(}\FloatTok{0.6}\NormalTok{, }\FloatTok{0.6}\NormalTok{, }\StringTok{"Text at (0.6, 0.6)"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h=}\NormalTok{.}\DecValTok{6}\NormalTok{, }\AttributeTok{v=}\NormalTok{.}\DecValTok{6}\NormalTok{, }\AttributeTok{lty=}\DecValTok{2}\NormalTok{) }\CommentTok{\# horizont. and vertic. }
+                          \CommentTok{\# lines}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}{Margins region}
+\protect\hypertarget{margins-region}{}
+\small
+
+\begin{center}\includegraphics[width=1\linewidth]{Practice_files/figure-beamer/unnamed-chunk-33-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Rome wasn't built in a day \small and neither
+your graph}
+\protect\hypertarget{rome-wasnt-built-in-a-day-and-neither-your-graph}{}
+Display the interaction between the two factors of a two-factorial
+experiment:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat }\OtherTok{\textless{}{-}} \FunctionTok{read.table}\NormalTok{(}\AttributeTok{header=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{text=}\StringTok{"}
+\StringTok{A B rt}
+\StringTok{a1 b1 825}
+\StringTok{a1 b2 792}
+\StringTok{a1 b3 840}
+\StringTok{a2 b1 997}
+\StringTok{a2 b2 902}
+\StringTok{a2 b3 786}
+\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Force \texttt{A} and \texttt{B} to be \texttt{factor}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{] }\OtherTok{=} \FunctionTok{lapply}\NormalTok{(dat[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{], as.factor)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Modificare il layout dei plot}
+\protect\hypertarget{modificare-il-layout-dei-plot}{}
+Vanno creati dei pannelli
+
+\small
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(nrighe, ncolonne)) }\CommentTok{\# pannelli vengono riempiti per riga}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfcol=}\FunctionTok{c}\NormalTok{(nrighe, ncolonne)) }\CommentTok{\# pannelli vengono riempiti per colonna }
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{plot()}}
+\protect\hypertarget{plot}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x) }\CommentTok{\# solo una variabile}
+\FunctionTok{plot}\NormalTok{(x, y) }\CommentTok{\# due variabile (scatter plot)}
+\FunctionTok{plot}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x) }\CommentTok{\# due variabile, y in funzione di x}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Esempi: \texttt{plot(x)}}
+\protect\hypertarget{esempi-plotx}{}
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{with}\NormalTok{(benessere, }
+     \FunctionTok{plot}\NormalTok{(score\_au, }
+          \AttributeTok{col =} \FunctionTok{ifelse}\NormalTok{(genere }\SpecialCharTok{==} \DecValTok{1}\NormalTok{, }\StringTok{"blue"}\NormalTok{, }\StringTok{"pink"}\NormalTok{), }
+          \AttributeTok{pch =} \FunctionTok{ifelse}\NormalTok{(genere }\SpecialCharTok{==} \DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{16}\NormalTok{)))}
+\FunctionTok{legend}\NormalTok{(}\AttributeTok{x =} \DecValTok{115}\NormalTok{, }\AttributeTok{y =} \DecValTok{48}\NormalTok{, }
+       \FunctionTok{c}\NormalTok{(}\StringTok{"Maschi"}\NormalTok{, }\StringTok{"Femmine"}\NormalTok{), }\AttributeTok{pch =} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{16}\NormalTok{), }
+       \AttributeTok{col =}\FunctionTok{c}\NormalTok{(}\StringTok{"blue"}\NormalTok{, }\StringTok{"pink"}\NormalTok{), }\AttributeTok{cex =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-38-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Esempi: \texttt{plot(x,\ y)}}
+\protect\hypertarget{esempi-plotx-y}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{with}\NormalTok{(benessere, }
+     \FunctionTok{plot}\NormalTok{(score\_au, score\_ben))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-39-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Esempi: \texttt{plot(y\ \textasciitilde{}\ x)}}
+\protect\hypertarget{esempi-ploty-x}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{with}\NormalTok{(benessere, }
+     \FunctionTok{plot}\NormalTok{(score\_ben }\SpecialCharTok{\textasciitilde{}}\NormalTok{ score\_au))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-40-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Esempi: \texttt{plot(y\ \textasciitilde{}\ x)}
+con retta di regressione}
+\protect\hypertarget{esempi-ploty-x-con-retta-di-regressione}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{with}\NormalTok{(benessere, }
+     \FunctionTok{plot}\NormalTok{(score\_ben }\SpecialCharTok{\textasciitilde{}}\NormalTok{ score\_au))}
+\FunctionTok{abline}\NormalTok{(}\FunctionTok{lm}\NormalTok{(score\_ben }\SpecialCharTok{\textasciitilde{}}\NormalTok{ score\_au, }\AttributeTok{data =}\NormalTok{ benessere), }
+          \AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lty =} \DecValTok{3}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-41-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Esempi: \texttt{plot(y\ \textasciitilde{}\ x)}
+con x categoriale}
+\protect\hypertarget{esempi-ploty-x-con-x-categoriale}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{benessere}\SpecialCharTok{$}\NormalTok{genere }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(}\FunctionTok{ifelse}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{genere }\SpecialCharTok{==} \DecValTok{1}\NormalTok{, }
+                           \StringTok{"maschio"}\NormalTok{, }\StringTok{"femmina"}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(score\_au }\SpecialCharTok{\textasciitilde{}}\NormalTok{ genere, }\AttributeTok{data =}\NormalTok{ benessere)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-42-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Attenzione!}
+\protect\hypertarget{attenzione}{}
+\texttt{plot(y\ \textasciitilde{}\ x)} con x categoriale è uguale a
+\texttt{boxplot(y\ \textasciitilde{}\ x)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{boxplot}\NormalTok{(score\_au }\SpecialCharTok{\textasciitilde{}}\NormalTok{ genere, }\AttributeTok{data =}\NormalTok{ benessere)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-43-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{hist()}: Frequenze}
+\protect\hypertarget{hist-frequenze}{}
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_au, }\AttributeTok{breaks =} \DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-44-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{hist()}: Densità}
+\protect\hypertarget{hist-densituxe0}{}
+Densità \scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_au,}
+     \AttributeTok{density=}\DecValTok{50}\NormalTok{, }\AttributeTok{breaks=}\DecValTok{20}\NormalTok{, }
+     \AttributeTok{prob=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{col =} \StringTok{"darkblue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-45-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Multi plot (in riga)}
+\protect\hypertarget{multi-plot-in-riga}{}
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+
+\FunctionTok{hist}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_au,}\AttributeTok{density=}\DecValTok{50}\NormalTok{, }\AttributeTok{breaks=}\DecValTok{20}\NormalTok{, }\AttributeTok{prob=}\ConstantTok{TRUE}\NormalTok{, }
+     \AttributeTok{main =} \StringTok{"Score au"}\NormalTok{)}
+\FunctionTok{curve}\NormalTok{(}\FunctionTok{dnorm}\NormalTok{(x, }\AttributeTok{mean=}\FunctionTok{mean}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_au), }
+            \AttributeTok{sd=}\FunctionTok{sd}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_au)), }
+      \AttributeTok{col=}\StringTok{"springgreen4"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{add=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{yaxt=}\StringTok{"n"}\NormalTok{)}
+
+\NormalTok{[...]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-47-1} \end{center}
+\end{frame}
+
+\begin{frame}{Multiplot (in colonna)}
+\protect\hypertarget{multiplot-in-colonna}{}
+\begin{center}\includegraphics[width=1.2\linewidth]{Practice_files/figure-beamer/unnamed-chunk-48-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Multiplot (in colonna), codice}
+\protect\hypertarget{multiplot-in-colonna-codice}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfcol=} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{hist}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_au,}\AttributeTok{density=}\DecValTok{50}\NormalTok{, }\AttributeTok{breaks=}\DecValTok{20}\NormalTok{, }\AttributeTok{prob=}\ConstantTok{TRUE}\NormalTok{, }
+     \AttributeTok{main =} \StringTok{"Score au"}\NormalTok{)}
+\FunctionTok{curve}\NormalTok{(}\FunctionTok{dnorm}\NormalTok{(x, }\AttributeTok{mean=}\FunctionTok{mean}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_au), }
+            \AttributeTok{sd=}\FunctionTok{sd}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_au)), }
+      \AttributeTok{col=}\StringTok{"springgreen4"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{add=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{yaxt=}\StringTok{"n"}\NormalTok{)}
+
+\FunctionTok{hist}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_ben,}\AttributeTok{density=}\DecValTok{50}\NormalTok{, }\AttributeTok{breaks=}\DecValTok{20}\NormalTok{, }\AttributeTok{prob=}\ConstantTok{TRUE}\NormalTok{, }
+     \AttributeTok{main =} \StringTok{"Score benessere"}\NormalTok{)}
+\FunctionTok{curve}\NormalTok{(}\FunctionTok{dnorm}\NormalTok{(x, }\AttributeTok{mean=}\FunctionTok{mean}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_ben), }
+            \AttributeTok{sd=}\FunctionTok{sd}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{score\_ben)), }
+      \AttributeTok{col=}\StringTok{"royalblue"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{add=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{yaxt=}\StringTok{"n"}\NormalTok{)}
+
+\FunctionTok{with}\NormalTok{(benessere, }
+     \FunctionTok{plot}\NormalTok{(score\_au, score\_ben, }\AttributeTok{frame =} \ConstantTok{FALSE}\NormalTok{))}
+
+
+\FunctionTok{with}\NormalTok{(benessere, }
+     \FunctionTok{plot}\NormalTok{(score\_au, score\_ben, }\AttributeTok{frame =} \ConstantTok{FALSE}\NormalTok{))}
+\FunctionTok{abline}\NormalTok{(}\FunctionTok{lm}\NormalTok{(score\_ben }\SpecialCharTok{\textasciitilde{}}\NormalTok{ score\_au, }\AttributeTok{data =}\NormalTok{ benessere), }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{barplot()}: Frequenze assolute}
+\protect\hypertarget{barplot-frequenze-assolute}{}
+Per creare i grafici a barre quando si hanno variabili discrete o
+categoriali
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{freq\_item1 }\OtherTok{=} \FunctionTok{table}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{item1)}
+\FunctionTok{barplot}\NormalTok{(freq\_item1, }
+        \AttributeTok{main =} \StringTok{"Frequenze assolute di risposta all\textquotesingle{}item 1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-50-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{barplot()}: Frequenze relative}
+\protect\hypertarget{barplot-frequenze-relative}{}
+Richiede uno step in più \(\rightarrow\) la creazione della tabella
+delle frequenze
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{perc\_item1 }\OtherTok{=}\NormalTok{ freq\_item1}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(freq\_item1)}
+\FunctionTok{barplot}\NormalTok{(perc\_item1, }\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }
+        \AttributeTok{main =} \StringTok{"Frequenze relative di risposta all\textquotesingle{}item 1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-51-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{barplot()} con più variabili}
+\protect\hypertarget{barplot-con-piuxf9-variabili}{}
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{perc\_item1\_gender }\OtherTok{=} \FunctionTok{table}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{genere, benessere}\SpecialCharTok{$}\NormalTok{item1)}
+\NormalTok{perc\_item1\_gender[}\DecValTok{1}\NormalTok{,] }\OtherTok{=}\NormalTok{ perc\_item1\_gender[}\DecValTok{1}\NormalTok{,]}\SpecialCharTok{/}\FunctionTok{table}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{item1)}
+\NormalTok{perc\_item1\_gender[}\DecValTok{2}\NormalTok{,] }\OtherTok{=}\NormalTok{ perc\_item1\_gender[}\DecValTok{2}\NormalTok{,]}\SpecialCharTok{/}\FunctionTok{table}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{item1)}
+
+\FunctionTok{barplot}\NormalTok{(perc\_item1\_gender, }\AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }
+        \AttributeTok{legend =} \FunctionTok{rownames}\NormalTok{(perc\_item1\_gender))}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h =}\NormalTok{ .}\DecValTok{5}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-52-1} \end{center}
+\end{frame}
+
+\begin{frame}{Un altro esempio di multiplot}
+\protect\hypertarget{un-altro-esempio-di-multiplot}{}
+\begin{center}\includegraphics[width=1\linewidth]{Practice_files/figure-beamer/unnamed-chunk-53-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Un esempio di multiplot (codice)}
+\protect\hypertarget{un-esempio-di-multiplot-codice}{}
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{item\_ben }\OtherTok{=}\NormalTok{ benessere[, }\FunctionTok{grep}\NormalTok{(}\StringTok{"item"}\NormalTok{, }\FunctionTok{colnames}\NormalTok{(benessere))]}
+
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{ncol}\NormalTok{(item\_ben)}\SpecialCharTok{/}\DecValTok{2}  \SpecialCharTok{+} \FloatTok{0.2}\NormalTok{)))}
+\NormalTok{temp }\OtherTok{=} \ConstantTok{NULL}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(item\_ben)) \{}
+\NormalTok{  temp }\OtherTok{=} \FunctionTok{table}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{genere, item\_ben[,i])}
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(temp)) \{}
+\NormalTok{    temp[j,] }\OtherTok{=}\NormalTok{ temp[j,]}\SpecialCharTok{/}\FunctionTok{table}\NormalTok{(item\_ben[,i])}
+\NormalTok{  \}}
+\FunctionTok{barplot}\NormalTok{(temp, }\AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{legend =} \FunctionTok{rownames}\NormalTok{(temp), }
+        \AttributeTok{main =} \FunctionTok{colnames}\NormalTok{(item\_ben)[i])}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h =}\NormalTok{ .}\DecValTok{5}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{interaction.plot()}}
+\protect\hypertarget{interaction.plot}{}
+Permette di vedere l'interazione tra due variabili a seconda di una
+terza variabile:
+
+\texttt{interaction.plot(x,\ v.\ categoriale,\ y)}
+
+\pause
+
+La relazione tra peso e altezza cambia a seconda del genere?
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-55-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{}
+\protect\hypertarget{section-5}{}
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{babies}\SpecialCharTok{$}\NormalTok{cat\_weight }\OtherTok{=} \FunctionTok{with}\NormalTok{(babies, }
+                         \FunctionTok{ifelse}\NormalTok{(}
+\NormalTok{                           peso }\SpecialCharTok{\textless{}=} \FunctionTok{quantile}\NormalTok{(babies}\SpecialCharTok{$}\NormalTok{peso)[}\DecValTok{2}\NormalTok{], }
+                           \StringTok{"light"}\NormalTok{, }
+                           \FunctionTok{ifelse}\NormalTok{(peso }\SpecialCharTok{\textgreater{}} \FunctionTok{quantile}\NormalTok{(babies}\SpecialCharTok{$}\NormalTok{peso)[}\DecValTok{2}\NormalTok{] }\SpecialCharTok{\&} 
+\NormalTok{                                    peso }\SpecialCharTok{\textgreater{}} \FunctionTok{quantile}\NormalTok{(babies}\SpecialCharTok{$}\NormalTok{peso)[}\DecValTok{4}\NormalTok{], }
+       \StringTok{"medium"}\NormalTok{, }
+       \StringTok{"heavy"}\NormalTok{)))}
+\NormalTok{babies}\SpecialCharTok{$}\NormalTok{cat\_weight }\OtherTok{=} \FunctionTok{factor}\NormalTok{(babies}\SpecialCharTok{$}\NormalTok{cat\_weight, }
+                           \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"light"}\NormalTok{, }
+                                      \StringTok{"medium"}\NormalTok{, }
+                                      \StringTok{"heavy"}\NormalTok{))}
+
+
+\NormalTok{babies}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       id genere      peso  altezza cat_weight
+1   baby1      f  7.424646 62.07722      light
+2   baby2      m  7.442727 58.18877      light
+3   baby3      f  9.512598 84.52737      heavy
+4   baby4      f 11.306349 85.13573     medium
+5   baby5      m  9.345165 75.23783      heavy
+6   baby6      m  5.411290 46.80163      light
+7   baby7      m 17.342840 99.21825     medium
+....
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{}
+\protect\hypertarget{section-6}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{with}\NormalTok{(babies, }
+     \FunctionTok{interaction.plot}\NormalTok{(cat\_weight, genere, altezza))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-57-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{ggplot2}}
+\protect\hypertarget{ggplot2}{}
+\small
+
+\texttt{ggplot2} (Grammar of Graphics plot, Wickman, 2016) is one of the
+best packages for plotting raw data and results:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"ggplot2"}\NormalTok{) ; }\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(data, }
+       \FunctionTok{ars}\NormalTok{(}\AttributeTok{x =}\NormalTok{ var.x, }
+           \AttributeTok{y =}\NormalTok{ var.y, }
+           \AttributeTok{col =}\NormalTok{ var.color, }\CommentTok{\# factor or character}
+           \AttributeTok{fill =}\NormalTok{  var.filling, }\CommentTok{\# factor or character}
+           \AttributeTok{shape =}\NormalTok{  var.shape, }\CommentTok{\# actor or character }
+           \AttributeTok{size =}\NormalTok{ var.size,  }\CommentTok{\# numeric}
+\NormalTok{           ...)) }\SpecialCharTok{+} \FunctionTok{geom\_graph.type}\NormalTok{() }\SpecialCharTok{+}\NormalTok{ ...}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Raw data}
+\protect\hypertarget{raw-data}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(rock, }
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{y=}\NormalTok{peri,}\AttributeTok{x=}\NormalTok{shape, }\AttributeTok{color =}\NormalTok{shape, }
+           \AttributeTok{size =}\NormalTok{ peri)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.5\linewidth]{Practice_files/figure-beamer/unnamed-chunk-60-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{The code for the interaction plot}
+\protect\hypertarget{the-code-for-the-interaction-plot}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(dat, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ B, }\AttributeTok{y =}\NormalTok{ rt, }\AttributeTok{group =}\NormalTok{ A)) }\SpecialCharTok{+}  
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{pch=}\NormalTok{dat}\SpecialCharTok{$}\NormalTok{A, }\AttributeTok{size =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{linetype=}\NormalTok{A), }\AttributeTok{size=}\DecValTok{1}\NormalTok{)  }\SpecialCharTok{+} \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"RT"}\NormalTok{) }\SpecialCharTok{+}  \FunctionTok{scale\_linetype\_manual}\NormalTok{(}\StringTok{"Task"}\NormalTok{, }\AttributeTok{values =}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{),}
+                                \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"A1"}\NormalTok{, }\StringTok{"A2"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"B1"}\NormalTok{, }\StringTok{"B2"}\NormalTok{, }\StringTok{"B3"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position=}\StringTok{"top"}\NormalTok{, }
+        \AttributeTok{panel.background =}  \FunctionTok{element\_rect}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#FAFAFA"}\NormalTok{, }
+                                         \AttributeTok{colour =} \StringTok{"\#FAFAFA"}\NormalTok{), }
+        \AttributeTok{plot.background =} \FunctionTok{element\_rect}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#FAFAFA"}\NormalTok{), }
+        \AttributeTok{legend.key =} \FunctionTok{element\_rect}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#FAFAFA"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}{The result}
+\protect\hypertarget{the-result}{}
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-62-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Scatter plot}
+\protect\hypertarget{scatter-plot}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{states }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(state.x77)}
+\FunctionTok{ggplot}\NormalTok{(states,  }\CommentTok{\# raw data}
+               \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Illiteracy, }\AttributeTok{y =}\NormalTok{ Murder)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =}\DecValTok{3}\NormalTok{, }\AttributeTok{pch=}\DecValTok{3}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{states }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(state.x77)}
+\FunctionTok{ggplot}\NormalTok{(states,  }\CommentTok{\# raw data}
+               \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Illiteracy, }\AttributeTok{y =}\NormalTok{ Murder)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =}\DecValTok{3}\NormalTok{, }\AttributeTok{pch=}\DecValTok{3}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-64-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Linear model}
+\protect\hypertarget{linear-model}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(states,  }\CommentTok{\# raw data}
+               \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Illiteracy, }\AttributeTok{y =}\NormalTok{ Murder)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =}\DecValTok{3}\NormalTok{, }\AttributeTok{pch=}\DecValTok{3}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{, }\AttributeTok{color=}\StringTok{"red"}\NormalTok{, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{fill=}\StringTok{"red"}\NormalTok{)) }\SpecialCharTok{+} \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-66-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Different plots in the same panel}
+\protect\hypertarget{different-plots-in-the-same-panel}{}
+\small
+
+use \texttt{grid.arrange()} function from the \texttt{gridExtra}
+package:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"gridExtra"}\NormalTok{) ; }\FunctionTok{library}\NormalTok{(gridExtra)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{murder\_raw }\OtherTok{=} \FunctionTok{ggplot}\NormalTok{(states,  }\CommentTok{\# raw data}
+               \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Illiteracy, }\AttributeTok{y =}\NormalTok{ Murder)) }\SpecialCharTok{+}
+\NormalTok{           .....}
+
+\NormalTok{murder\_lm }\OtherTok{=} \FunctionTok{ggplot}\NormalTok{(states,  }\CommentTok{\# lm }
+               \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Illiteracy, }\AttributeTok{y =}\NormalTok{ Murder)) }\SpecialCharTok{+}
+\NormalTok{           .....}
+\end{Highlighting}
+\end{Shaded}
+
+Combine the plots together:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{grid.arrange}\NormalTok{(murder\_raw, murder\_lm, }
+             \AttributeTok{nrow=}\DecValTok{1}\NormalTok{) }\CommentTok{\# plots forced to be the same row}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}{Combine the plots together}
+\protect\hypertarget{combine-the-plots-together}{}
+\small
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-71-1} \end{center}
+\end{frame}
+
+\begin{frame}{Multi Panel}
+\protect\hypertarget{multi-panel}{}
+\begin{center}\includegraphics[width=0.8\linewidth]{Practice_files/figure-beamer/unnamed-chunk-72-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Multi panel code}
+\protect\hypertarget{multi-panel-code}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{states }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(state.x77, }\AttributeTok{state.name =}\NormalTok{ state.name,}
+                    \AttributeTok{state.region =}\NormalTok{ state.region)}
+
+\FunctionTok{ggplot}\NormalTok{(states, }
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Population, }\AttributeTok{y =}\NormalTok{ Murder, }
+           \AttributeTok{size =}\NormalTok{ Illiteracy)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{state.region) }\SpecialCharTok{+} \FunctionTok{theme\_bw}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{boxplot()} e \texttt{violinplot()}}
+\protect\hypertarget{boxplot-e-violinplot}{}
+Data need to be in long format:
+
+\begin{verbatim}
+    id condition mean_time
+1 sbj1         A  3.477760
+2 sbj1         B  1.748681
+3 sbj2         A  2.405326
+4 sbj2         B  2.915242
+5 sbj3         A  3.294477
+6 sbj3         B  2.763332
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{}
+\protect\hypertarget{section-7}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{small }\OtherTok{=}\NormalTok{ benessere[, }\FunctionTok{c}\NormalTok{(}\StringTok{"ID"}\NormalTok{, }\StringTok{"score\_au"}\NormalTok{, }\StringTok{"score\_ben"}\NormalTok{)]}
+\NormalTok{score\_long  }\OtherTok{=} \FunctionTok{reshape}\NormalTok{(small, }
+        \AttributeTok{idvar =} \StringTok{"ID"}\NormalTok{, }
+        \AttributeTok{times =}\FunctionTok{names}\NormalTok{(small)[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{], }
+        \AttributeTok{timevar =} \StringTok{"score"}\NormalTok{, }\AttributeTok{v.names =} \StringTok{"value"}\NormalTok{,}
+        \AttributeTok{varying =} \FunctionTok{list}\NormalTok{(}\FunctionTok{names}\NormalTok{(small)[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]), }
+        \AttributeTok{direction =} \StringTok{"long"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(score\_long)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+           ID    score value
+1.score_au  1 score_au    33
+2.score_au  2 score_au    40
+3.score_au  3 score_au    38
+4.score_au  4 score_au    38
+5.score_au  5 score_au    26
+6.score_au  6 score_au    33
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{boxplot vs violinplot}
+\protect\hypertarget{boxplot-vs-violinplot}{}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+Boxplot \scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(score\_long, }
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ score, }\AttributeTok{y =}\NormalTok{ value,}
+           \AttributeTok{fill =}\NormalTok{ score)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_boxplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-76-1} \end{center}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+Violinplot
+
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(score\_long, }
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ score, }\AttributeTok{y =}\NormalTok{ value,}
+           \AttributeTok{fill =}\NormalTok{ score)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{trim =} \ConstantTok{FALSE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-77-1} \end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{}
+\protect\hypertarget{section-8}{}
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{score\_long }\OtherTok{=} \FunctionTok{merge}\NormalTok{(score\_long, benessere[, }\FunctionTok{c}\NormalTok{(}\StringTok{"ID"}\NormalTok{, }\StringTok{"genere"}\NormalTok{)])}
+
+\FunctionTok{ggplot}\NormalTok{(score\_long, }
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ score, }\AttributeTok{y =}\NormalTok{ value,}
+           \AttributeTok{fill =}\NormalTok{ genere)) }\SpecialCharTok{+} \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{trim =} \ConstantTok{FALSE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-78-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{barplot and histogram}
+\protect\hypertarget{barplot-and-histogram}{}
+\texttt{geom\_hist()}: histogram (continuous variables)
+
+\texttt{geom\_bar()}: bar plot
+
+Arguments:
+
+\begin{itemize}
+\item
+  \texttt{geom\_bar(stat\ =\ "count")}: automatically counts the
+  frequencies for each category, \textbf{does not need a y variable}
+\item
+  \texttt{geom\_bar(stat\ =\ "identity")}: plots a value associated to
+  each category \textbf{does need a y variable}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{geom\_bar(stat\ =\ "count")}:}
+\protect\hypertarget{geom_barstat-count}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(benessere, }
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ item5)) }\SpecialCharTok{+} \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"count"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-79-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{\texttt{geom\_bar(stat\ =\ "identity")}}
+\protect\hypertarget{geom_barstat-identity}{}
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{item\_5 }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{table}\NormalTok{(benessere}\SpecialCharTok{$}\NormalTok{item5)}\SpecialCharTok{/}\FunctionTok{nrow}\NormalTok{(benessere))}
+\NormalTok{item\_5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  Var1      Freq
+1    1 0.1466667
+2    2 0.2733333
+3    3 0.2600000
+4    4 0.1866667
+5    5 0.1333333
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Now the plot}
+\protect\hypertarget{now-the-plot}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(item\_5, }
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Var1, }\AttributeTok{y =}\NormalTok{ Freq)) }\SpecialCharTok{+} \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-81-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{All together}
+\protect\hypertarget{all-together}{}
+Long format
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{new\_item }\OtherTok{=}\NormalTok{ benessere[, }\FunctionTok{c}\NormalTok{(}\FunctionTok{grep}\NormalTok{(}\StringTok{"ID"}\NormalTok{, }\FunctionTok{colnames}\NormalTok{(benessere)), }
+                        \FunctionTok{grep}\NormalTok{(}\StringTok{"item"}\NormalTok{, }\FunctionTok{colnames}\NormalTok{(benessere)))]}
+\NormalTok{new\_item }\OtherTok{=} \FunctionTok{reshape}\NormalTok{(new\_item, }
+        \AttributeTok{idvar =} \StringTok{"ID"}\NormalTok{, }
+        \AttributeTok{times =}\FunctionTok{names}\NormalTok{(new\_item)[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{], }
+        \AttributeTok{timevar =} \StringTok{"item"}\NormalTok{, }\AttributeTok{v.names =} \StringTok{"value"}\NormalTok{,}
+        \AttributeTok{varying =} \FunctionTok{list}\NormalTok{(}\FunctionTok{names}\NormalTok{(new\_item)[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]), }
+        \AttributeTok{direction =} \StringTok{"long"}\NormalTok{)}
+\NormalTok{new\_item}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+           ID  item value
+1.item1     1 item1     1
+2.item1     2 item1     2
+3.item1     3 item1     2
+4.item1     4 item1     3
+5.item1     5 item1     4
+....
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Calcolo le proporzioni}
+\protect\hypertarget{calcolo-le-proporzioni}{}
+Di ogni opzione di risposta \texttt{value} per ogni item \texttt{item}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{proporzione }\OtherTok{=}\NormalTok{ new\_item }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(item, value) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{prop =} \FunctionTok{n}\NormalTok{()}\SpecialCharTok{/}\FunctionTok{nrow}\NormalTok{(benessere))}
+
+\NormalTok{proporzione}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 26 x 3
+# Groups:   item [5]
+   item  value  prop
+   <chr> <int> <dbl>
+ 1 item1     1 0.193
+ 2 item1     2 0.293
+....
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{The plot (finally)}
+\protect\hypertarget{the-plot-finally}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(proporzione, }
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ value, }\AttributeTok{y =}\NormalTok{ prop)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{item) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-84-1} \end{center}
+\end{frame}
+
+\hypertarget{esport-graphs}{%
+\section{Esport graphs}\label{esport-graphs}}
+
+\begin{frame}[fragile]{In automnatico}
+\protect\hypertarget{in-automnatico}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pdf}\NormalTok{(}\StringTok{"nome\_grafico.pdf"}\NormalTok{)}
+\FunctionTok{png}\NormalTok{(}\StringTok{"nome\_grafico.png"}\NormalTok{)          }
+\FunctionTok{tiff}\NormalTok{(}\StringTok{"nome\_grafico.tiff"}\NormalTok{)}
+\FunctionTok{jpeg}\NormalTok{(}\StringTok{"nome\_grafico.jpeg"}\NormalTok{)}
+\FunctionTok{bmp}\NormalTok{(}\StringTok{"nome\_grafico.bmp"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Rember to turn off the graphical device
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dev.off}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Example}
+\protect\hypertarget{example}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pdf}\NormalTok{(}\StringTok{"il\_mio\_violin.pdf"}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(score\_long, }
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ score, }\AttributeTok{y =}\NormalTok{ value,}
+           \AttributeTok{fill =}\NormalTok{ score)) }\SpecialCharTok{+} \FunctionTok{geom\_violin}\NormalTok{(}\AttributeTok{trim =} \ConstantTok{FALSE}\NormalTok{) }
+\FunctionTok{dev.off}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Manually}
+\protect\hypertarget{manually}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"data/esporta.png"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\hypertarget{r-for-statistical-computing}{%
+\section{\texorpdfstring{\texttt{R} for statistical
+computing}{R for statistical computing}}\label{r-for-statistical-computing}}
+
+\begin{frame}[fragile]{}
+\protect\hypertarget{section-9}{}
+The \texttt{stats} package (built-in package in \texttt{R}) contains
+function for statistical calculations and random number generator
+
+see \texttt{library(help=stats)}
+\end{frame}
+
+\hypertarget{classical-hypothesis-testing-in-r}{%
+\section{Classical hypothesis testing in
+R}\label{classical-hypothesis-testing-in-r}}
+
+\begin{frame}[fragile]{}
+\protect\hypertarget{section-10}{}
+\begin{itemize}
+\tightlist
+\item
+  \texttt{chisq.test()}: contingency table \(\chi^2\) tests
+\item
+  \texttt{cor.test()}: association between paired samples
+\item
+  \texttt{t.test()}: one- and two-sample \emph{t} tests (also for paired
+  data)
+\item
+  \texttt{lm(y\ \textasciitilde{}\ x1\ +\ x2\ +\ x3\ ...)}: fit a linear
+  model
+\item
+  \texttt{glm(y\ \textasciitilde{}\ x1\ +\ x2\ +\ x3\ ...)}: fit a
+  generalize linear model
+\end{itemize}
+\end{frame}
+
+\begin{frame}{What is the \emph{p}-value?}
+\protect\hypertarget{what-is-the-p-value}{}
+\emph{p}-value:
+
+\begin{quote}
+conditional probability of obtaining a test stastic that is at least as
+extreme as the one observed, given that the null hyphothesis is true
+\end{quote}
+
+If \(p < \alpha\) (i.e., the probability of rejecting the null
+hypothesis when it is true) \(\rightarrow\) the null hypothesis is
+rejected
+
+\begin{center}\includegraphics[width=0.5\linewidth]{Practice_files/figure-beamer/unnamed-chunk-89-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{\(\chi^2\) test}
+\protect\hypertarget{chi2-test}{}
+Independence of observations
+
+Hypothesis:
+
+\begin{itemize}
+\item
+  \(H_0\): \(P(X_{ij} = k) = p_k\) for all \(i=1, \ldots, r\) and
+  \(j=1, \ldots, c\)
+\item
+  \(H_0\): \(P(X_{ij} = k) \neq P(X_{i'j} = k)\) for \emph{at least} one
+  \(i \in \{1, \ldots, r\}\) and \(j \in \{1, \ldots, c\}\)
+\end{itemize}
+
+Test statistic:
+
+\[\chi^2 = \displaystyle \sum_{i=1}^{n}\frac{(x_{ij} - \hat{x}_{ij})^2}{\hat{x}_{ij}}, \, \, \chi^2 \sim \chi^2(r-1)(c-1)\]
+
+In \texttt{R}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tab }\OtherTok{\textless{}{-}} \FunctionTok{xtabs}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ education }\SpecialCharTok{+}\NormalTok{ induced, infert)}
+\FunctionTok{chisq.test}\NormalTok{(tab)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Correlation test}
+\protect\hypertarget{correlation-test}{}
+Hypothesis:
+
+\begin{itemize}
+\tightlist
+\item
+  \(H_0\): \(\rho_{XY} = 0\), \(H_1\): \(\rho_{xy} \neq 0\)
+\item
+  \(H_0\): \(\rho_{XY} = 0\), \(H_1\): \(\rho_{xy} < 0\)
+\item
+  \(H_0\): \(\rho_{XY} = 0\), \(H_1\): \(\rho_{xy} >0\)
+\end{itemize}
+
+Test statistic:
+
+\[T = \frac{r_{xy}}{\sqrt{1-r_{xy}^2}}\sqrt{n-2}, \, \, T \sim t(n-2)\]
+In \texttt{R}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor.test}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ speed }\SpecialCharTok{+}\NormalTok{ dist, cars, }
+         \AttributeTok{alternative =} \StringTok{"two.sided"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Correlation matrix}
+\protect\hypertarget{correlation-matrix}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(benessere[, }\FunctionTok{grep}\NormalTok{(}\StringTok{"item"}\NormalTok{, }\FunctionTok{colnames}\NormalTok{(benessere))])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+            item1       item2      item3       item4       item5
+item1  1.00000000  0.07820461 0.11579134 -0.05894317 -0.18117877
+item2  0.07820461  1.00000000 0.24890831  0.21963611 -0.07757221
+item3  0.11579134  0.24890831 1.00000000  0.04977145  0.03830005
+item4 -0.05894317  0.21963611 0.04977145  1.00000000  0.05751880
+item5 -0.18117877 -0.07757221 0.03830005  0.05751880  1.00000000
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Two (indepdent) sample \(t\) test}
+\protect\hypertarget{two-indepdent-sample-t-test}{}
+Independent samples from normally distributions where \(\sigma^2\) are
+unknown but homogeneous
+
+\begin{itemize}
+\tightlist
+\item
+  \(H_0\): \(\mu_{x_1 - x_2} = 0\), \(H_1\): \(\mu_{x_1 - x_2} \neq 0\)
+\item
+  \(H_0\): \(\mu_{x_1 - x_2} = 0\), \(H_1\): \(\mu_{x_1 - x_2} < 0\)
+\item
+  \(H_0\): \(\mu_{x_1 - x_2} = 0\), \(H_1\): \(\mu_{x_1 - x_2} > 0\)
+\end{itemize}
+
+Test statistic:
+
+\[T = \frac{\bar{x_1} - \bar{x_2}}{\sigma_{\bar{x_1}-\bar{y_2}}}, \, \, T \sim t(n_1 + n_2 - 2)\]
+
+\texttt{R} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t.test}\NormalTok{(len }\SpecialCharTok{\textasciitilde{}}\NormalTok{ supp, }\AttributeTok{data =}\NormalTok{ ToothGrowth, }
+       \AttributeTok{var.equal =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Two (depedent) sample \(t\) test}
+\protect\hypertarget{two-depedent-sample-t-test}{}
+Observations on the same sample
+
+Hypothesis:
+
+\begin{itemize}
+\tightlist
+\item
+  \(H_0\): \(\mu_{D} = 0\), \(H_1\): \(\mu_{D} \neq 0\)
+\item
+  \(H_0\): \(\mu_{D} = 0\), \(H_1\): \(\mu_{D} < 0\)
+\item
+  \(H_0\): \(\mu_{D} = 0\), \(H_1\): \(\mu_{D} > 0\)
+\end{itemize}
+
+Test statistic:
+
+\[T = \frac{d}{\sigma_{d}}, \, \, \, T \sim t(m-1)\]
+
+\texttt{R} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{with}\NormalTok{(sleep,}
+     \FunctionTok{t.test}\NormalTok{(extra[group }\SpecialCharTok{==} \DecValTok{1}\NormalTok{],}
+\NormalTok{            extra[group }\SpecialCharTok{==} \DecValTok{2}\NormalTok{], }\AttributeTok{paired =} \ConstantTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\hypertarget{generalized-linear-models-glms}{%
+\section{Generalized Linear Models
+(GLMs)}\label{generalized-linear-models-glms}}
+
+\begin{frame}[fragile]{Formulae}
+\protect\hypertarget{formulae}{}
+Statistical models are represented by formulae which are extremely close
+to the actual statistical notation:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.1849}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.8151}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+in \texttt{R}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Model
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\texttt{y\ \textasciitilde{}\ 1\ +\ x} &
+\(y_i = \beta_0 + \beta_1 x_i + \varepsilon_i\) \\
+\texttt{y\ \textasciitilde{}\ x} & (same but short) \\
+\texttt{y\ \textasciitilde{}\ 0\ +\ x} &
+\(y_i = \beta_1 x_i + \varepsilon_i\) \\
+\texttt{y\ \textasciitilde{}\ x\_A\ *\ x\_B} &
+\(y_i = \beta_0 + \beta_1 x_i + \beta_2 x_j + (\beta_1 \beta_2)x_{ij} + \varepsilon_{ij}\) \\
+\bottomrule\noalign{}
+\end{longtable}
+\end{frame}
+
+\begin{frame}[fragile]{Linear models}
+\protect\hypertarget{linear-models}{}
+\[y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \ldots + \beta_kx_k + \varepsilon\]
+In \texttt{R}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{lm}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x1 }\SpecialCharTok{+}\NormalTok{ x2 }\SpecialCharTok{+}\NormalTok{ ... }\SpecialCharTok{+}\NormalTok{ xk, data)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Extractor functions I}
+\protect\hypertarget{extractor-functions-i}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{coef}\NormalTok{()    }\CommentTok{\# Extract the regression coefficients}
+\FunctionTok{summary}\NormalTok{() }\CommentTok{\# Print a comprehensive summary of the results of}
+          \CommentTok{\# the regression analysis}
+\FunctionTok{anova}\NormalTok{()   }\CommentTok{\# Compare nested models and produce an analysis}
+\FunctionTok{resid}\NormalTok{()   }\CommentTok{\# Extract the (matrix of) residuals}
+\FunctionTok{plot}\NormalTok{()    }\CommentTok{\# Produce four plots, showing residuals, fitted}
+          \CommentTok{\# values and some diagnostics}
+\FunctionTok{model.matrix}\NormalTok{()}
+          \CommentTok{\# Return the design matrix}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Extractor functions II}
+\protect\hypertarget{extractor-functions-ii}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{vcov}\NormalTok{()    }\CommentTok{\# Return the variance{-}covariance matrix of the}
+          \CommentTok{\# main parameters of a fitted model object}
+\FunctionTok{predict}\NormalTok{() }\CommentTok{\# A new data frame must be supplied having the}
+          \CommentTok{\# same variables specified with the same labels}
+          \CommentTok{\# as the original. The value is a vector or}
+          \CommentTok{\# matrix of predicted values corresponding to}
+          \CommentTok{\# the determining variable values in data frame}
+\FunctionTok{step}\NormalTok{()    }\CommentTok{\# Select a suitable model by adding or dropping}
+          \CommentTok{\# terms and preserving hierarchies. The model}
+          \CommentTok{\# with the smallest value of AIC (Akaike’s}
+          \CommentTok{\# Information Criterion) discovered in the}
+          \CommentTok{\# stepwise search is returned}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}[fragile]{Generalized linear models}
+\protect\hypertarget{generalized-linear-models}{}
+\[g(\mu) = \beta_0 + \beta_1x_1 + \beta_2x_2 + \ldots + \beta_kx_k + \varepsilon\]
+\(g()\) is the link functions that connects the mean to the linear
+combination of predictors.
+
+A GLM is composed of three elements: The response distribution, the link
+function, and the linear combination of predictors
+
+In \texttt{R}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{glm}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x1 }\SpecialCharTok{+}\NormalTok{ x2 }\SpecialCharTok{+}\NormalTok{ ... }\SpecialCharTok{+}\NormalTok{ xk, }\FunctionTok{family}\NormalTok{(link), data)}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\begin{frame}{LM: data}
+\protect\hypertarget{lm-data}{}
+\begin{center}\includegraphics[width=0.9\linewidth]{Practice_files/figure-beamer/unnamed-chunk-99-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{LM: Model}
+\protect\hypertarget{lm-model}{}
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OtherTok{=} \FunctionTok{lm}\NormalTok{(y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x, }\AttributeTok{data =}\NormalTok{ data)}
+\FunctionTok{summary}\NormalTok{(model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = y ~ x, data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.2559 -1.1314  0.0162  1.1889  4.4123 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 10.90000    0.10580   103.0   <2e-16 ***
+x            0.55000    0.03742    14.7   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.672 on 498 degrees of freedom
+Multiple R-squared:  0.3025,    Adjusted R-squared:  0.3011 
+F-statistic:   216 on 1 and 498 DF,  p-value: < 2.2e-16
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Diagnostic}
+\protect\hypertarget{diagnostic}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-101-1} \end{center}
+\end{frame}
+
+\begin{frame}{GLM: Data}
+\protect\hypertarget{glm-data}{}
+\begin{center}\includegraphics[width=0.7\linewidth]{Practice_files/figure-beamer/unnamed-chunk-102-1} \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{GLM: Model}
+\protect\hypertarget{glm-model}{}
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_bin }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(z }\SpecialCharTok{\textasciitilde{}}\NormalTok{x, }\AttributeTok{data =}\NormalTok{ data, }\AttributeTok{family =} \StringTok{"binomial"}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(model\_bin)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+glm(formula = z ~ x, family = "binomial", data = data)
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -0.04795    0.14021  -0.342    0.732    
+x            0.53713    0.06486   8.281   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 612.55  on 499  degrees of freedom
+Residual deviance: 521.91  on 498  degrees of freedom
+AIC: 525.91
+
+Number of Fisher Scoring iterations: 4
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Interpreting the parameters}
+\protect\hypertarget{interpreting-the-parameters}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# the coefficients are on the log{-}odds scale }
+\NormalTok{my\_coef }\OtherTok{=} \FunctionTok{coef}\NormalTok{(model\_bin)}
+\CommentTok{\# this function yields the probabilty values}
+\FunctionTok{binomial}\NormalTok{()}\SpecialCharTok{$}\FunctionTok{linkinv}\NormalTok{(my\_coef)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+(Intercept)           x 
+  0.4880139   0.6311456 
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Families}
+\protect\hypertarget{families}{}
+A special link function to each response variable. In \texttt{R} some
+different link functions are available by default:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Family name     Link functions}
+\NormalTok{Binomial           logit, probit, log, cloglog}
+\NormalTok{gaussian           identity, log, inverse}
+\NormalTok{Gamma              identity, inverse, log}
+\NormalTok{inverse.gaussian   }\DecValTok{1}\SpecialCharTok{/}\NormalTok{mu}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{, identity, inverse, log}
+\NormalTok{poisson            log, identity, sqrt}
+\NormalTok{quasi              logit, probit, cloglog, identity, inverse, }
+\NormalTok{                   log, }\DecValTok{1}\SpecialCharTok{/}\NormalTok{mu}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{, sqrt}
+\end{Highlighting}
+\end{Shaded}
+\end{frame}
+
+\end{document}
