@@ -18,6 +18,7 @@ header-includes:
     - \usepackage{graphicx} 
     - \usepackage{setspace}
     - \usepackage{tabularx}
+    # - \useinnertheme{circles}
     - \usetheme[compressed]{Singapore}
     - \usepackage[english]{babel}
     - \usepackage{tikzsymbols}
@@ -134,7 +135,7 @@ setwd("C:/Users/huawei/OneDrive/Documenti/GitHub/RcouRse")
 
 ## R projects for the win
 
-Dealing with working directiores is a pain in the neck you should try to avoid at all costs
+Dealing with working directories is a pain in the neck you should try to avoid it at all costs
 
 Besides, after months under review, the manuscript has finally come back and now you have to revise it. But where are the data...? and the scripts with the analyses...?
 
@@ -148,7 +149,7 @@ An R project automatically create an "Island" with its sub islands
 
 They are pretty convenient for at least two reasons: 
 
-1. Allow for havin multiple R instances open at the same time $\rightarrow$ You can work on multiple projects at the same time 
+1. Allow for having multiple R instances open at the same time $\rightarrow$ You can work on multiple projects at the same time 
 
 2. All the files you need are there
 
@@ -477,7 +478,7 @@ v_chr
 `factor`: use numbers or characters to identify the variable levels
 
 ```{r}
-ses = factor(c(rep(c("low", "medium", "high"), each = 2)))
+ses = factor(rep(c("low", "medium", "high"), each = 2))
 ```
 
 ```{r echo = FALSE}
