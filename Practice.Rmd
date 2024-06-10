@@ -182,7 +182,7 @@ Data set is in wide format
 ## Well-being
 
 
-\small
+\footnotesize
 ```{r mylin = 45}
 library(readxl)
 benessere = read_xlsx("data/datiBenessere.xlsx")
@@ -191,9 +191,11 @@ head(benessere,2)
 
 ```
 
-\normalsize
+\footnotesize
 
 `rowSums()` : 
+
+## Well-being continue
 
 \small
 
@@ -250,11 +252,13 @@ grepl("au", my_vector)
 
 \small
 ```{r myline = 60}
-cat(rowSums(benessere[, grep("item", colnames(benessere))])[1:15], "...")
+cat(rowSums(benessere[, grep("item", 
+                             colnames(benessere))])[1:15], "...")
 ```
 
 Assign to a new column (new variable)
 
+\footnotesize
 ```{r}
 benessere$score_ben = rowSums(benessere[, grep("item", colnames(benessere))])
 ```
@@ -273,6 +277,7 @@ summary(babies$peso)
 
 ## data set
 
+\footnotesize
 
 ```{r}
 summary(babies)
@@ -291,15 +296,16 @@ table(babies$genere)
 ## Contingency tables
 
 \small
+
 ```{r}
 
 benessere = read.csv("data/benessere.csv", header = T)
-# creo una nuova variabile dicotomica per descrivere 
-# il livello di benessere
+# new dichotomous variable to identify the well-being level
+# as high or low
 benessere$new_benessere = with(benessere, 
                                ifelse(benessere > mean(benessere), 
-                                      "alto", 
-                                      "basso"))
+                                      "low", 
+                                      "high"))
 with(benessere, table(new_benessere, genere))
 
 ```
@@ -343,10 +349,12 @@ aggregate(cbind(y1, y2) ~ x1 + x2, data = data, FUN, ...)
 
 ## Aggregating: Examples
 
+\footnotesize
 
 ```{r}
-benessere = read.csv("data/benessereScores.csv", header = T, sep =",")
-head(benessere)
+benessere = read.csv("data/benessereScores.csv", 
+                     header = T, sep =",")
+head(benessere, 3)
 
 ```
 
@@ -364,7 +372,8 @@ aggregate(score_au ~ genere, data = benessere, mean)
 Compute the mean according of self esteem and well being according to gender
 
 ```{r}
-aggregate(cbind(score_ben, score_au) ~ genere, data = benessere, mean)
+aggregate(cbind(score_ben, score_au) ~ genere, 
+          data = benessere, mean)
 ```
 
 
@@ -459,11 +468,8 @@ library(tidyverse)
 
 \pause 
 
-\begin{center}
 
-\texttt{%>%} (Pipe)
-
-\end{center}
+%>% (Pipe)
 
 
 Use the combo `shift + ctrl + M`
@@ -476,7 +482,7 @@ object %>%
   function
 ```
 
-## Descriptive statistica
+## Descriptive statistics
 
 
 ```{r}
@@ -498,7 +504,7 @@ knitr::include_graphics("img/work.png")
 
 - Compute minimum, maximum, median of  `score_au` and `score_ben` with `tidyverse`
 
-- Import the `babies` datas set and compute the descriptive stats of weight and height with`tidyverse`
+- Import the `babies` data set and compute the descriptive stats of `weight` and `height` with `tidyverse`
 
 
 # Graphics
@@ -581,14 +587,14 @@ abline(h=.6, v=.6, lty=2) # horizont. and vertic.
 ```
 
 
-## Margins region 
+## Margins region
 
 \small
 
-```{r eval=TRUE, echo=FALSE, out.width="100%"}
+```{r eval=TRUE, echo=FALSE, out.width="90%"}
 x <- runif(50, 0, 2) # 50 uniform random numbers
 y <- runif(50, 0, 2)
-plot(x, y, main="Title", 
+plot(x, y, main="Title",
      sub="Subtitle", xlab="x-label",
      ylab="y-label", cex.lab=1.5) # produce plotting window
 text(0.6, 0.6, "Text at (0.6, 0.6)")
@@ -598,83 +604,58 @@ for(side in 1:4) mtext(-1:4, side=side, at=.7, line=-1:4)
 mtext(paste("Side", 1:4), side=1:4, line=-1, font=2)
 ```
 
-## Rome wasn't built in a day  \small and neither your graph
 
-Display the interaction between the two factors of a two-factorial experiment: 
-
-```{r eval=T}
-dat <- read.table(header=TRUE, text="
-A B rt
-a1 b1 825
-a1 b2 792
-a1 b3 840
-a2 b1 997
-a2 b2 902
-a2 b3 786
-")
-```
-
-Force `A` and `B` to be `factor`:
-
-```{r eval =TRUE}
-dat[,1:2] = lapply(dat[,1:2], as.factor)
-```
-
-## Modificare il layout dei plot 
-
-Vanno creati dei pannelli
-
-\small
-
-```{r eval=FALSE, myline = 60}
-par(mfrow=c(nrighe, ncolonne)) # pannelli vengono riempiti per riga
-par(mfcol=c(nrighe, ncolonne)) # pannelli vengono riempiti per colonna 
-```
 
 ## `plot()`
 
 ```{r eval = FALSE}
-plot(x) # solo una variabile
-plot(x, y) # due variabile (scatter plot)
-plot(y ~ x) # due variabile, y in funzione di x
+plot(x) # one variable
+plot(x, y) # scatter plot
+plot(y ~ x) # scatter plot (unless X is categorical)
 ```
 
 
-## Esempi: `plot(x)`
+## Example: `plot(x)`
 
 \scriptsize
 
-```{r}
+```{r out.width="70%"}
 with(benessere, 
      plot(score_au, 
           col = ifelse(genere == 1, "blue", "pink"), 
           pch = ifelse(genere == 1, 3, 16)))
 legend(x = 115, y = 48, 
-       c("Maschi", "Femmine"), pch = c(3, 16), 
+       c("Male", "Female"), pch = c(3, 16), 
        col =c("blue", "pink"), cex = 2)
 ```
 
 
-## Esempi: `plot(x, y)`
+## Example: `plot(x, y)`
 
-```{r}
+\scriptsize
+
+```{r out.width="70%"}
 with(benessere, 
      plot(score_au, score_ben))
 
 ```
 
-## Esempi: `plot(y ~ x)`
+## Example: `plot(y ~ x)`
 
-```{r}
+\scriptsize
+
+```{r out.width="70%"}
 with(benessere, 
      plot(score_ben ~ score_au))
 ```
 
 
 
-## Esempi: `plot(y ~ x)` con retta di regressione
+## Example: `plot(y ~ x)` with regression line
 
-```{r}
+\scriptsize
+
+```{r out.width="70%"}
 with(benessere, 
      plot(score_ben ~ score_au))
 abline(lm(score_ben ~ score_au, data = benessere), 
@@ -682,7 +663,9 @@ abline(lm(score_ben ~ score_au, data = benessere),
 ```
 
 
-## Esempi: `plot(y ~ x)` con x categoriale
+## Example: `plot(y ~ x)` (x categorical)
+
+\scriptsize
 
 ```{r}
 benessere$genere <- factor(ifelse(benessere$genere == 1, 
@@ -691,10 +674,11 @@ plot(score_au ~ genere, data = benessere)
 
 ```
 
-## Attenzione!
+## Warning!
 
-`plot(y ~ x)` con x categoriale è uguale a `boxplot(y ~ x)`
+`plot(y ~ x)` with x categorical is equivalent to `boxplot(y ~ x)`
 
+\scriptsize
 
 ```{r}
 boxplot(score_au ~ genere, data = benessere)
@@ -703,7 +687,7 @@ boxplot(score_au ~ genere, data = benessere)
 
 
 
-## `hist()`: Frequenze
+## `hist()`: Frequency
 
 \scriptsize
 ```{r}
@@ -711,19 +695,48 @@ hist(benessere$score_au, breaks = 20)
 ```
 
 
-## `hist()`: Densità
+## `hist()`: Density
 
-Densità
 \scriptsize
 ```{r}
-hist(benessere$score_au,
-     density=50, breaks=20, 
+hist(benessere$score_au, density=20, breaks=20, 
      prob=TRUE, col = "darkblue")
+```
+
+## Modify the layout 
+
+Create the panels
+
+\small
+
+```{r eval=FALSE, myline = 60}
+par(mfrow=c(nrows, ncolumns)) # panels filled by rows
+par(mfcol=c(nrows, ncolumns)) # panels filled by columns
+```
+
+## Multi plot: Rows
+
+
+```{r echo = FALSE}
+par(mfrow=c(1, 2))
+
+hist(benessere$score_au,density=50, breaks=20, prob=TRUE, 
+     main = "Score au")
+curve(dnorm(x, mean=mean(benessere$score_au), 
+            sd=sd(benessere$score_au)), 
+      col="springgreen4", lwd=2, add=TRUE, yaxt="n")
+
+hist(benessere$score_ben,density=50, breaks=20, prob=TRUE, 
+     main = "Score benessere")
+curve(dnorm(x, mean=mean(benessere$score_ben), 
+            sd=sd(benessere$score_ben)), 
+      col="royalblue", lwd=2, add=TRUE, yaxt="n")
+
 ```
 
 
 
-## Multi plot (in riga)
+## Multi plot: Rows
 
 \footnotesize
 
@@ -736,21 +749,6 @@ curve(dnorm(x, mean=mean(benessere$score_au),
             sd=sd(benessere$score_au)), 
       col="springgreen4", lwd=2, add=TRUE, yaxt="n")
 
-[...]
-
-```
-
-
-
-```{r echo = FALSE}
-par(mfrow=c(2, 2))
-
-hist(benessere$score_au,density=50, breaks=20, prob=TRUE, 
-     main = "Score au")
-curve(dnorm(x, mean=mean(benessere$score_au), 
-            sd=sd(benessere$score_au)), 
-      col="springgreen4", lwd=2, add=TRUE, yaxt="n")
-
 hist(benessere$score_ben,density=50, breaks=20, prob=TRUE, 
      main = "Score benessere")
 curve(dnorm(x, mean=mean(benessere$score_ben), 
@@ -760,13 +758,10 @@ curve(dnorm(x, mean=mean(benessere$score_ben),
 ```
 
 
+## Multiplot columns
 
 
-
-## Multiplot (in colonna)
-
-
-```{r echo = FALSE, out.width="120%"}
+```{r echo = F, eval = T}
 par(mfcol= c(2,2))
 hist(benessere$score_au,density=50, breaks=20, prob=TRUE, 
      main = "Score au")
@@ -792,10 +787,12 @@ abline(lm(score_ben ~ score_au, data = benessere), col = "blue", lwd = 2)
 ```
 
 
-## Multiplot (in colonna), codice
 
+## Multi plot Columns
 
-```{r echo = T, eval = FALSE}
+\scriptsize
+
+```{r echo = T, out.width="120%", eval = FALSE}
 par(mfcol= c(2,2))
 hist(benessere$score_au,density=50, breaks=20, prob=TRUE, 
      main = "Score au")
@@ -820,33 +817,34 @@ abline(lm(score_ben ~ score_au, data = benessere), col = "blue", lwd = 2)
 
 ```
 
-## `barplot()`: Frequenze assolute
 
-Per creare i grafici a barre quando si hanno variabili discrete o categoriali
 
+## `barplot()`: Absolute frequency
  
+ Discrete variables
 
 
 ```{r}
 freq_item1 = table(benessere$item1)
 barplot(freq_item1, 
-        main = "Frequenze assolute di risposta all'item 1")
+        main = "Item 1 - Frequencies")
 
 ```
 
-## `barplot()`: Frequenze relative
+## `barplot()`: Relative frequency
 
-Richiede uno step in più $\rightarrow$ la creazione della tabella delle frequenze
+
+First step: Frequency tables
 
 ```{r}
 perc_item1 = freq_item1/sum(freq_item1)
 barplot(perc_item1, ylim = c(0, 1), 
-        main = "Frequenze relative di risposta all'item 1")
+        main = "Item 1 - Realtive frequencies")
 
 ```
 
 
-## `barplot()` con più variabili 
+## `barplot()` with multiple variables 
 
 \scriptsize
 
@@ -862,7 +860,7 @@ abline(h = .5, lty = 2, col = "red")
 
 
 
-## Un altro esempio di multiplot 
+## Multi plot: Example
 
 ```{r echo = FALSE, out.width="100%"}
 item_ben = benessere[, grep("item", colnames(benessere))]
@@ -882,7 +880,7 @@ abline(h = .5, lty = 2, col = "red")
 ```
 
 
-## Un esempio di multiplot (codice) 
+## Multi plot: Example
 \footnotesize
 
 ```{r echo = TRUE, eval = FALSE, myline = 80}
@@ -906,22 +904,22 @@ abline(h = .5, lty = 2, col = "red")
 
 ## `interaction.plot()`
 
-Permette di vedere l'interazione tra due variabili a seconda di una terza variabile: 
+Intearction between $x$ and $y$ given a categorical variable $z$
 
-`interaction.plot(x, v. categoriale, y)`
+`interaction.plot(x, z, y)`
 
 \pause
 
-La relazione tra peso e altezza cambia a seconda del genere?
+Does the relationship between height and weight change according to gender?
 
 
 
-```{r echo = FALSE}
+```{r echo = FALSE, out.width="70%"}
 babies = read.table("data/babies.tab")
 
 plot(altezza ~ peso, data = babies, 
      col = ifelse(genere == "f", "pink", "blue"), 
-     pch = 16, main = "Peso - altezza dei bambini", 
+     pch = 16, main = "Weight - height", 
      cex = 3)
 ```
 
@@ -929,19 +927,15 @@ plot(altezza ~ peso, data = babies,
 ## 
 \footnotesize
 
-```{r tidy=FALSE, out.lines = 8}
+```{r tidy=F, out.lines = 5}
 babies$cat_weight = with(babies, 
                          ifelse(
                            peso <= quantile(babies$peso)[2], 
-                           "light", 
-                           ifelse(peso > quantile(babies$peso)[2] & 
-                                    peso > quantile(babies$peso)[4], 
-       "medium", 
-       "heavy")))
-babies$cat_weight = factor(babies$cat_weight, 
-                           levels = c("light", 
-                                      "medium", 
-                                      "heavy"))
+                           "light", ifelse(peso > quantile(babies$peso)[2] & 
+                                    peso > quantile(babies$peso)[4], "medium", 
+                                    "heavy")))
+babies$cat_weight = factor(babies$cat_weight,
+                           levels = c("light", "medium", "heavy"))
 
 
 babies
@@ -993,9 +987,30 @@ ggplot(rock,
 ```
 
 
+## Some new data
+
+```{r eval=T}
+dat <- read.table(header=TRUE, text="
+A B rt
+a1 b1 825
+a1 b2 792
+a1 b3 840
+a2 b1 997
+a2 b2 902
+a2 b3 786
+")
+```
+
+Force `A` and `B` to be `factor`:
+
+```{r eval =TRUE}
+dat[,1:2] = lapply(dat[,1:2], as.factor)
+```
 
 
 ## The code for the interaction plot
+
+\footnotesize
 
 ```{r eval = FALSE}
 ggplot(dat, aes(x = B, y = rt, group = A)) +  
@@ -1003,12 +1018,7 @@ ggplot(dat, aes(x = B, y = rt, group = A)) +
   geom_line(aes(linetype=A), size=1)  + theme_classic() +
   ylab("RT") +  scale_linetype_manual("Task", values =c(3,4),
                                 labels = c("A1", "A2")) +
-  scale_x_discrete(labels = c("B1", "B2", "B3")) +
-  theme(legend.position="top", 
-        panel.background =  element_rect(fill = "#FAFAFA", 
-                                         colour = "#FAFAFA"), 
-        plot.background = element_rect(fill = "#FAFAFA"), 
-        legend.key = element_rect(fill = "#FAFAFA"))
+  scale_x_discrete(labels = c("B1", "B2", "B3")) 
 ```
 
 ## The result
@@ -1024,38 +1034,45 @@ ggplot(dat, aes(x = B, y = rt, group = A)) +
         panel.background =  element_rect(fill = "#FAFAFA", 
                                          colour = "#FAFAFA"), 
         plot.background = element_rect(fill = "#FAFAFA"), 
-        legend.key = element_rect(fill = "#FAFAFA"))
+        legend.key = element_rect(fill = "#FAFAFA"), 
+        axis.text = element_text(size = 32), 
+        axis.title = element_text(size = 36),
+        legend.text = element_text(size = 34))
 ```
 
 
 ## Scatter plot 
 
-```{r eval = FALSE, echo = TRUE}
+```{r eval = FALSE, echo = F}
 states = data.frame(state.x77)
 ggplot(states,  # raw data
                aes(x = Illiteracy, y = Murder)) + geom_point(size =3, pch=3) + theme_classic() + theme(legend.position = "none")
 ```
 
+\footnotesize
 
 ```{r}
 states = data.frame(state.x77)
 ggplot(states,  # raw data
-               aes(x = Illiteracy, y = Murder)) + geom_point(size =3, pch=3) + theme_classic() + theme(legend.position = "none")
+               aes(x = Illiteracy, y = Murder)) + 
+  geom_point(size =3, pch=10) + theme_classic() 
 ```
 
 
 ## Linear model
-
+\footnotesize
 ```{r echo = FALSE, eval =FALSE}
 ggplot(states,  # raw data
-               aes(x = Illiteracy, y = Murder)) + geom_point(size =3, pch=3) + theme_classic() + 
-  geom_smooth(method="lm", color="red", aes(fill="red")) + theme(legend.position = "none")
+               aes(x = Illiteracy, y = Murder)) + 
+  geom_point(size =3, pch=10) + theme_classic() + 
+  geom_smooth(method="lm", color="red", aes(fill="red")) 
 ```
 
 ```{r}
 ggplot(states,  # raw data
-               aes(x = Illiteracy, y = Murder)) + geom_point(size =3, pch=3) + theme_classic() + 
-  geom_smooth(method="lm", color="red", aes(fill="red")) + theme(legend.position = "none")
+               aes(x = Illiteracy, y = Murder)) + 
+  geom_point(size =3, pch=10) + theme_classic() + 
+  geom_smooth(method="lm", color="red", aes(fill="red")) 
 ```
 
 ## Different plots in the same panel
@@ -1110,7 +1127,7 @@ grid.arrange(murder_raw, murder_lm,
 
 
 
-## Multi Panel 
+## Multi Panel (automatic)
 
 ```{r echo = FALSE, out.width="80%"}
 states = data.frame(state.x77, state.name = state.name,
@@ -1122,7 +1139,7 @@ ggplot(states,
   facet_wrap(~state.region) + theme_bw() 
 ```
 
-## Multi panel code 
+## Multi panel (automatic)
 
 ```{r eval=FALSE}
 states = data.frame(state.x77, state.name = state.name,
@@ -1227,6 +1244,8 @@ Arguments:
 
 ## `geom_bar(stat = "count")`:
 
+\footnotesize
+
 ```{r}
 ggplot(benessere, 
        aes(x = item5)) + geom_bar(stat = "count")
@@ -1239,14 +1258,6 @@ ggplot(benessere,
 \footnotesize
 ```{r out.width="45%"}
 item_5 = data.frame(table(benessere$item5)/nrow(benessere))
-item_5
-
-
-```
-
-## Now the plot
-
-```{r}
 ggplot(item_5, 
        aes(x = Var1, y = Freq)) + geom_bar(stat = "identity")
 
@@ -1272,21 +1283,22 @@ new_item
 
 ```
 
-## Calcolo le proporzioni
+## Compute the proportion
 
-Di ogni opzione di risposta `value` per ogni item `item`
 
 ```{r out.lines = 6}
 proporzione = new_item %>% 
   group_by(item, value) %>% 
   summarise(prop = n()/nrow(benessere))
-
 proporzione
 ```
 
 
 
-## The plot (finally)
+## The plot
+
+
+\footnotesize
 
 ```{r}
 ggplot(proporzione, 
@@ -1300,7 +1312,7 @@ ggplot(proporzione,
 
 # Esport graphs
 
-## In automnatico
+## Automatically
 
 
 ```{r eval = F}
@@ -1311,7 +1323,7 @@ jpeg("nome_grafico.jpeg")
 bmp("nome_grafico.bmp")
 ```
 
-Rember to turn off the graphical device
+Remember to turn off the graphical device
 
 ```{r eval=FALSE}
 dev.off()
@@ -1332,8 +1344,8 @@ dev.off()
 ## Manually
 
 
-```{r eval = FALSE, out.width="120%"}
-knitr::include_graphics("data/esporta.png")
+```{r echo = FALSE, eval = TRUE, out.width="80%"}
+knitr::include_graphics("img/esporta.png")
 ```
 
 
@@ -1397,10 +1409,11 @@ Test statistic:
 
 $$\chi^2 = \displaystyle \sum_{i=1}^{n}\frac{(x_{ij} - \hat{x}_{ij})^2}{\hat{x}_{ij}}, \, \, \chi^2 \sim \chi^2(r-1)(c-1)$$
 
-In `R`: 
+## In `R`: 
 
-```{r eval=FALSE}
+```{r eval=TRUE}
 tab <- xtabs(~ education + induced, infert)
+tab
 chisq.test(tab)
 ```
 
@@ -1416,14 +1429,18 @@ Hypothesis:
 Test statistic: 
 
 $$T = \frac{r_{xy}}{\sqrt{1-r_{xy}^2}}\sqrt{n-2}, \, \, T \sim t(n-2)$$
-In `R`:
 
-```{r eval=FALSE}
+
+## In `R`:
+
+```{r eval=T}
 cor.test(~ speed + dist, cars, 
          alternative = "two.sided")
 ```
 
 ## Correlation matrix 
+
+\scriptsize
 
 ```{r}
 cor(benessere[, grep("item", colnames(benessere))])
@@ -1443,9 +1460,9 @@ Test statistic:
 
 $$T = \frac{\bar{x_1} - \bar{x_2}}{\sigma_{\bar{x_1}-\bar{y_2}}}, \, \, T \sim t(n_1 + n_2 - 2)$$
 
-`R` function: 
+## In `R`: 
 
-```{r eval=FALSE}
+```{r eval=T}
 t.test(len ~ supp, data = ToothGrowth, 
        var.equal = FALSE)
 ```
@@ -1465,11 +1482,9 @@ Test statistic:
 $$T = \frac{d}{\sigma_{d}}, \, \, \, T \sim t(m-1)$$
 
 
+## In `R` function: 
 
-
-`R` function: 
-
-```{r eval=FALSE}
+```{r eval=T}
 with(sleep,
      t.test(extra[group == 1],
             extra[group == 2], paired = TRUE))

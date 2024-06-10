@@ -648,6 +648,7 @@ names = c("Pasquale", "Egidio", "Giulia", "Livio", "Andrea")
 
 ## Index the elements in a vector: Examples 
 
+\footnotesize
 \centering
 
 ```{r}
