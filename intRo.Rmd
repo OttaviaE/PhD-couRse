@@ -2089,8 +2089,8 @@ for (i in 1:ncol(X)) {
 <!-- r <- 0.50 -->
 <!-- r_neg <- -0.95 -->
 <!-- library('MASS') -->
-<!-- data <- data.frame(mvrnorm(n=samples,  -->
-<!--                            mu=c(1, 1),  -->
+<!-- data <- data.frame(mvrnorm(n=samples, -->
+<!--                            mu=c(1, 1), -->
 <!--                            Sigma=matrix(c(1, r, r, 1), nrow=2), empirical=TRUE)) -->
 <!-- colnames(data) <- c("x", "y") -->
 <!-- data$z <- ifelse(data$y < 1, 0, 1) -->
