@@ -1,5 +1,5 @@
 ---
-title: "01-P`R`actice"
+title: "01-p`R`actice"
 date: 'June, 13 2024'
 author: |
   | Ottavia M. Epifania
@@ -11,9 +11,9 @@ output:
     colortheme: dove
     highlight: kate
 header-includes:
-    - \AtBeginDocument{\title[co\texttt{R}so]{01-P\texttt{R}actice}}
+    - \AtBeginDocument{\title[co\texttt{R}so]{01-p\texttt{R}actice}}
     - \AtBeginDocument{\author[OME, UniPD]{Ottavia M. Epifania, Ph.D}}
-    - \AtBeginDocument{\date[13 Giugno]{13 Giugno 2024}}
+    - \AtBeginDocument{\date[13 June]{13 June 2024}}
     - \AtBeginDocument{\institute[Lezioni UniCatt]{Lezione di Dottorato @Università Cattolica del Sacro Cuore (MI)}}
     - \usepackage{graphicx} 
     - \usepackage{setspace}
@@ -251,7 +251,12 @@ grepl("au", my_vector)
 `rowSums()` conditioned on specific columns:
 
 \small
-```{r myline = 60}
+```{r echo = T, eval=FALSE, myline = 60}
+rowSums(benessere[, grep("item", 
+                             colnames(benessere))])[1:15]
+```
+
+```{r echo = F, myline = 60}
 cat(rowSums(benessere[, grep("item", 
                              colnames(benessere))])[1:15], "...")
 ```
@@ -306,7 +311,7 @@ benessere$new_benessere = with(benessere,
                                ifelse(benessere > mean(benessere), 
                                       "low", 
                                       "high"))
-with(benessere, table(new_benessere, genere))
+with(benessere, table(genere, new_benessere))
 
 ```
 
@@ -322,7 +327,7 @@ Single variable
 Multiple variables
 
 ```{r}
-my_perc = with(benessere, table(new_benessere, genere))
+my_perc = with(benessere, table(genere, new_benessere))
 (my_perc = cbind(my_perc, rowSums(my_perc)))
 
 ```
@@ -380,16 +385,15 @@ aggregate(cbind(score_ben, score_au) ~ genere,
 ## Your turn! 
 
 
-```{r echo = FALSE, fig.align='center', out.width="15%"}
+```{r echo = FALSE, fig.align='center', out.width="10%"}
 knitr::include_graphics("img/work.png")
 ```
 
+
 \small
 
-- Recode `frat` and assign it to a new var into the data frame (`siblings`:
-> 0 siblings $\rightarrow$ no
->
-> 1+ sibilings $\rightarrow$ yes
+- Recode `frat` and assign it to a new var into the data frame (`siblings`: 0 siblings $\rightarrow$ no, 1+ sibilings $\rightarrow$ yes. Hint: use `ifelse()` 
+
 
 - Compute the mean of `score_ben` according to `siblings`
 
@@ -698,9 +702,12 @@ hist(benessere$score_au, breaks = 20)
 ## `hist()`: Density
 
 \scriptsize
-```{r}
+```{r out.width="60%"}
 hist(benessere$score_au, density=20, breaks=20, 
      prob=TRUE, col = "darkblue")
+curve(dnorm(x, mean=mean(benessere$score_au), 
+            sd=sd(benessere$score_au)), 
+      col="darkblue", lwd=4, add=TRUE, yaxt="n")
 ```
 
 ## Modify the layout 
@@ -823,6 +830,7 @@ abline(lm(score_ben ~ score_au, data = benessere), col = "blue", lwd = 2)
  
  Discrete variables
 
+\footnotesize
 
 ```{r}
 freq_item1 = table(benessere$item1)
@@ -836,6 +844,7 @@ barplot(freq_item1,
 
 First step: Frequency tables
 
+\footnotesize
 ```{r}
 perc_item1 = freq_item1/sum(freq_item1)
 barplot(perc_item1, ylim = c(0, 1), 
@@ -935,7 +944,9 @@ babies$cat_weight = with(babies,
                                     peso > quantile(babies$peso)[4], "medium", 
                                     "heavy")))
 babies$cat_weight = factor(babies$cat_weight,
-                           levels = c("light", "medium", "heavy"))
+                           levels = c("light", 
+                                      "medium", 
+                                      "heavy"))
 
 
 babies
@@ -1411,6 +1422,8 @@ $$\chi^2 = \displaystyle \sum_{i=1}^{n}\frac{(x_{ij} - \hat{x}_{ij})^2}{\hat{x}_
 
 ## In `R`: 
 
+\small
+
 ```{r eval=TRUE}
 tab <- xtabs(~ education + induced, infert)
 tab
@@ -1432,6 +1445,7 @@ $$T = \frac{r_{xy}}{\sqrt{1-r_{xy}^2}}\sqrt{n-2}, \, \, T \sim t(n-2)$$
 
 
 ## In `R`:
+
 
 ```{r eval=T}
 cor.test(~ speed + dist, cars, 
@@ -1461,10 +1475,12 @@ Test statistic:
 $$T = \frac{\bar{x_1} - \bar{x_2}}{\sigma_{\bar{x_1}-\bar{y_2}}}, \, \, T \sim t(n_1 + n_2 - 2)$$
 
 ## In `R`: 
+\small 
+
 
 ```{r eval=T}
 t.test(len ~ supp, data = ToothGrowth, 
-       var.equal = FALSE)
+       var.equal = FALSE, alternative = "two.sided")
 ```
 
 ## Two (depedent) sample $t$ test
@@ -1484,10 +1500,12 @@ $$T = \frac{d}{\sigma_{d}}, \, \, \, T \sim t(m-1)$$
 
 ## In `R` function: 
 
+\small 
+
 ```{r eval=T}
 with(sleep,
      t.test(extra[group == 1],
-            extra[group == 2], paired = TRUE))
+            extra[group == 2], paired = TRUE), alternative = "greater")
 ```
 
 # Generalized Linear Models (GLMs)
@@ -1600,11 +1618,14 @@ summary(model)
 
 ## Diagnostic 
 
+\small
+
 ```{r}
 par(mfrow = c(2,2))
 plot(model)
 ```
 
+[https://library.virginia.edu/data/articles/diagnostic-plots](https://library.virginia.edu/data/articles/diagnostic-plots)
 
 ## GLM: Data
 
